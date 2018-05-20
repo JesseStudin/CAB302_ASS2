@@ -87,9 +87,22 @@ public class Supermart extends JFrame{
         JMenu file = new JMenu("File");
         file.setMnemonic(KeyEvent.VK_F);
 
+        // Menu Items:
+        JMenuItem loadMenuItem = new JMenuItem("Load Item Properties"); 
         JMenuItem eMenuItem = new JMenuItem("Exit", exitIcon);
+        
+        // Menu Item Settings:
+        
+        //Load Properties Menu:
+        loadMenuItem.setToolTipText("Load in an Item Properties File");
+        loadMenuItem.addActionListener((ActionEvent event) -> {
+        		LoadItemProperties();
+        });
+        
+        //Exit Menu:
         eMenuItem.setMnemonic(KeyEvent.VK_E);
         eMenuItem.setToolTipText("Exit application");
+        
         eMenuItem.addActionListener((ActionEvent event) -> {
             System.exit(0);
         });
@@ -100,6 +113,21 @@ public class Supermart extends JFrame{
 
         setJMenuBar(menubar);
     }
+	
+	private void LoadItemProperties()
+	{
+		
+	}
+	
+	private void LoadManifests()
+	{
+		
+	}
+	
+	private void LoadSalesLogs()
+	{
+		
+	}
 
 
 }

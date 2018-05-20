@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Supermart extends JFrame{
@@ -37,50 +38,55 @@ public class Supermart extends JFrame{
 	
 	public void RenderUI()
 	{
-		    model = new DefaultTableModel();
-		    model.addColumn("Name");
-		    model.addColumn("Quantity");
-		    model.addColumn("Manufacturing Cost");
-		    model.addColumn("Sell Price");
-		    model.addColumn("Re-Order Point");
-		    model.addColumn("Re-Order Amount");
-		    model.addColumn("Temperature");
-		    
-		    String[] frozenvegetablemix = { "frozen vegetable mix", "88", "5", "8", "255", "325", "-12" };
-		    model.addRow(frozenvegetablemix);
+	    model = new DefaultTableModel();
+	    model.addColumn("Name");
+	    model.addColumn("Quantity");
+	    model.addColumn("Manufacturing Cost");
+	    model.addColumn("Sell Price");
+	    model.addColumn("Re-Order Point");
+	    model.addColumn("Re-Order Amount");
+	    model.addColumn("Temperature");
+	    
+	    String[] frozenvegetablemix = { "frozen vegetable mix", "88", "5", "8", "255", "325", "-12" };
+	    model.addRow(frozenvegetablemix);
 
-		    table = new JTable(model);
+	    table = new JTable(model);
 
-		    JButton addButton = new JButton("Add Item");
-		    
-		    addButton.addActionListener(new ActionListener() {
+	    JButton addButton = new JButton("Add Item");
+	    
+	    addButton.addActionListener(new ActionListener() {
 
-		      public void actionPerformed(ActionEvent event) {
-		        String[] item = { "", "", "", "", "", "", "" };
-		        model.addRow(item);
-		      }
-		    });
+	      public void actionPerformed(ActionEvent event) {
+	        String[] item = { "", "", "", "", "", "", "" };
+	        model.addRow(item);
+	      }
+	    });
 
-		    JButton removeButton = new JButton("Remove Selected Philosopher");
+	    JButton removeButton = new JButton("Remove Selected Item");
 
-		    removeButton.addActionListener(new ActionListener() {
+	    removeButton.addActionListener(new ActionListener() {
 
-		      public void actionPerformed(ActionEvent event) {
-		        model.removeRow(table.getSelectedRow());
-		      }
-		    });
-		    JPanel inputPanel = new JPanel();
-		    inputPanel.add(addButton);
-		    inputPanel.add(removeButton);
+	      public void actionPerformed(ActionEvent event) {
+	        model.removeRow(table.getSelectedRow());
+	      }
+	    });
+	    JPanel inputPanel = new JPanel();
+	    
+	    inputPanel.add(addButton);
+	    inputPanel.add(removeButton);
+	    
+	    JTextField t1;
+		t1=new JTextField("$1,000,000,00");
+		t1.setBounds(50,100, 200,30);
+		inputPanel.add(t1);
 
-		    Container container = getContentPane();
-		    container.add(new JScrollPane(table), BorderLayout.CENTER);
-		    container.add(inputPanel, BorderLayout.NORTH);
+	    Container container = getContentPane();
+	    container.add(new JScrollPane(table), BorderLayout.CENTER);
+	    container.add(inputPanel, BorderLayout.NORTH);
 
-		    setDefaultCloseOperation(EXIT_ON_CLOSE);
-		    setSize(400, 300);
-		    setVisible(true);
-
+	    setDefaultCloseOperation(EXIT_ON_CLOSE);
+	    setSize(500, 300);
+	    setVisible(true);
 	}
 	
 	private void createMenuBar() {

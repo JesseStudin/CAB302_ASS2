@@ -88,15 +88,29 @@ public class Supermart extends JFrame{
         file.setMnemonic(KeyEvent.VK_F);
 
         // Menu Items:
-        JMenuItem loadMenuItem = new JMenuItem("Load Item Properties"); 
+        JMenuItem loadMenuItemProperties = new JMenuItem("Load Item Properties"); 
+        JMenuItem loadMenuManifests = new JMenuItem("Load Manifest"); 
+        JMenuItem loadMenuSalesLogs = new JMenuItem("Load Sales Log"); 
         JMenuItem eMenuItem = new JMenuItem("Exit", exitIcon);
         
         // Menu Item Settings:
         
         //Load Properties Menu:
-        loadMenuItem.setToolTipText("Load in an Item Properties File");
-        loadMenuItem.addActionListener((ActionEvent event) -> {
-        		LoadItemProperties();
+        loadMenuItemProperties.setToolTipText("Load in an Item Properties File");
+        loadMenuItemProperties.addActionListener((ActionEvent event) -> {
+        	LoadItemProperties();
+        });
+        
+        //Load Manifests Menu:
+        loadMenuManifests.setToolTipText("Load in a Manifest File");
+        loadMenuManifests.addActionListener((ActionEvent event) -> {
+        	LoadManifests();
+        });
+        
+        //Load Sales Logs Menu:
+        loadMenuSalesLogs.setToolTipText("Load in a Sales Log File");
+        loadMenuSalesLogs.addActionListener((ActionEvent event) -> {
+        	LoadSalesLogs();
         });
         
         //Exit Menu:
@@ -107,6 +121,9 @@ public class Supermart extends JFrame{
             System.exit(0);
         });
 
+        file.add(loadMenuItemProperties);
+        file.add(loadMenuManifests);
+        file.add(loadMenuSalesLogs);
         file.add(eMenuItem);
 
         menubar.add(file);

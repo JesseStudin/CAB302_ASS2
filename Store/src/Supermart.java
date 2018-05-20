@@ -17,6 +17,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class Supermart extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel model;
 	private JTable table;
 	

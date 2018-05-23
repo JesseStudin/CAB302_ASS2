@@ -4,7 +4,6 @@ import java.io.*;
 public class inventoryLoad {
 
 	public String[] objectNames;
-	private int totalCapitalCost;
 	private int counter;
 
 	public void setInitialValues(String[] sortArray) {
@@ -56,14 +55,10 @@ public class inventoryLoad {
 			}
 			out.print(object.getProductName() + ",");
 			out.print(object.getReorderAmount() + "\n");
-			setTotalCapitalCost(object);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	//set this variables TotalCapitalCost to deduct from above
-	private void setTotalCapitalCost(ProgramStock stockObject) {
-		this.totalCapitalCost = this.totalCapitalCost + (int)stockObject.getManufacterCost();
-	}
+
 
 }

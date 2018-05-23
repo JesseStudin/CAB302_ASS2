@@ -1,6 +1,3 @@
-
-import Stock.ProgramStock;
-
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -53,8 +50,34 @@ public class Store {
 
 	}
 
-	public void setStoreCapital(File manifest) {
+	public void setStoreInitialCapital(File manifest) {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(manifest));
+			double totalCost = 0;
+			while((reader.readLine() != null)){
+				List<String> tempHold = new ArrayList<String>();
+				tempHold.add(reader.readLine());
+				totalCost = Double.parseDouble(tempHold.get(1)) * Double.parseDouble(tempHold.get(4));
+			}
+			this.storeCapital -= totalCost;
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
+	public void setStoreSaleCapital(File saleManifest) {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(saleManifest));
+			double salesTotal = 0;
+			int i = 0;
+			while((reader.readLine() != null)){
+				List<String> tempHold = new ArrayList<String>();
+			}
+		} catch(IOException e){
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -1,30 +1,33 @@
 package Stock;
 
-public class ProgramStock {
+public class Item {
 //this will read the csv and set the data
 	//some public variables
 	private double manufacterCost, sellPrice, temperatureCel, reorderAmount, reorderPoint;
 	private String productName;
 
-	public ProgramStock(String productName){
+	public Item(String productName){
 		//default values for just productName
+		//Used as a placeholder for a company??
 		this.productName = productName;
 		reorderAmount = 0;
 		reorderPoint = 0;
 		sellPrice = 0;
 		manufacterCost = 0;
 		sellPrice = 0;
+		this.temperatureCel = 0.0;
 	}
 
-	public ProgramStock(String productName, double manufacterCost, double sellPrice, double reorderPoint, double reorderAmount) {
+	public Item(String productName, double manufacterCost, double sellPrice, double reorderPoint, double reorderAmount) {
 		this.productName = productName;
 		this.manufacterCost = manufacterCost;
 		this.sellPrice = sellPrice;
 		this.reorderPoint = reorderPoint;
 		this.reorderAmount = reorderAmount;
+		this.temperatureCel = 0.0;
 	}
 
-	public ProgramStock(String productName, double manufacterCost, double sellPrice, double reorderPoint, double reorderAmount, double temperatureCel) {
+	public Item(String productName, double manufacterCost, double sellPrice, double reorderPoint, double reorderAmount, double temperatureCel) {
 		this.productName = productName;
 		this.manufacterCost = manufacterCost;
 		this.sellPrice = sellPrice;

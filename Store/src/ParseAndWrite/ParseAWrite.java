@@ -7,104 +7,99 @@ import java.util.List;
 
 public class ParseAWrite {
 
-	public String[] objectNames;
+	private List<Item> objectNames = new ArrayList<Item>();
 	private int capitalInitialTotal;
 	private int capitalSalesTotal;
 	private int counter;
 
-//called when create manifest is running
-	public void writeInventoryValues(Item item, int counter) {
-		try(FileWriter fw = new FileWriter("CSV's\\manifest.csv");
-			BufferedWriter bw = new BufferedWriter(fw);
-			PrintWriter manifestWriter = new PrintWriter(bw)) {
-			if (counter == 0) {
-				manifestWriter.print("Ordinary Truck");
-			} else if(counter == 9) {
-				manifestWriter.print("Refridgerated Truck");
-			}
-			manifestWriter.print(item.getProductName());
-			manifestWriter.print(",");
-			manifestWriter.print(item.getReorderAmount() + "\n");
-			manifestWriter.close();
-			manifestWriter.flush();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
 
-	public void createManifest(String[] sortArray) {
-		//we will create the variables by looping inside GUI and sending them through to this class!
-		//This class will then sort set them into the "Item" class.!
-		//this should work!!
-		String setObjectName = sortArray[0];
-		double[] setObjectDoubles = {};
-		setObjectDoubles = new double[sortArray.length - 1];
-		if(sortArray.length == 6) {
-			for (int i = 0; i < sortArray.length - 1; i++) {
-				double valueHold = Double.parseDouble(sortArray[i + 1]);
-				setObjectDoubles[i] = valueHold;
-				Item objectName = new Item(setObjectName, setObjectDoubles[0], setObjectDoubles[1], setObjectDoubles[2], setObjectDoubles[3], setObjectDoubles[4]);
-				writeInventoryValues(objectName, counter);
-			}
-		} else if(sortArray.length == 5) {
-			for (int i = 0; i < sortArray.length - 2; i++) {
-				double valueHold = Double.parseDouble(sortArray[i + 1]);
-				setObjectDoubles[i] = valueHold;
-				Item objectName = new Item(setObjectName, setObjectDoubles[0], setObjectDoubles[1], setObjectDoubles[2], setObjectDoubles[3]);
-				writeInventoryValues(objectName, counter);
-			}
-		}
-		getObjectNames(setObjectName);
-		counter++;
-	}
-	//this is useful so a for loop can print out objectNames and values for manifests later
-	private void getObjectNames(String objectName) {
-		if(objectNames.length == 0) {
-			this.objectNames[0] = objectName;
+	private boolean checkTemp(int i) {
+		if(objectNames.get(i).getTemperatureCel() < -0.1 || objectNames.get(i).getTemperatureCel() > 0.0) {
+			return true;
 		} else {
-			this.objectNames[objectNames.length] = objectName;
+			return false;
 		}
 	}
 
-	public int parseManifestSales(File manifest) {
-		BufferedReader reader = null;
-		capitalSalesTotal = 0;
+	private void writeManifest() {
 		try {
-			//Idea from Stack Overflow
-			reader = new BufferedReader(new FileReader(manifest));
-			String theLine;
-			while((theLine = reader.readLine()) != null) {
-				String[] tempHold = theLine.split("[,\\s]");
-				if(tempHold[1] != null) {
-					capitalSalesTotal = capitalSalesTotal + Integer.parseInt(tempHold[1]);
+			PrintWriter newLineWriter = new PrintWriter(new FileWriter("manifest.csv"));
+			//how about sorting the temp and normal into two different Lists
+			List<Item> normalItems = new ArrayList<Item>();
+			List<Item> rItems = new ArrayList<Item>();
+			int counter = 0;
+			//first sort them into lists
+			for(int i = 0; i < objectNames.size(); i++) {
+				if (checkTemp(i) == true) {
+					rItems.add(objectNames.get(i));
+					counter++;
+					System.out.println(counter);
+				} else if (checkTemp(i) == false) {
+					normalItems.add(objectNames.get(i));
+					counter++;
+					System.out.println(counter);
 				}
 			}
-			return capitalSalesTotal;
+			//print first list!
+			//ordinary Truck
+			newLineWriter.print("Ordinary Truck\n");
+			newLineWriter.flush();
+			for(int j = 0; j < normalItems.size(); j++) {
+				newLineWriter.print(normalItems.get(j).getProductName());
+				newLineWriter.flush();
+				newLineWriter.print("," + normalItems.get(j).getReorderAmount() + "\n");
+				newLineWriter.flush();
+			}
+			//Refridgerated Truck
+			newLineWriter.println("Refridgerated Truck\n");
+			newLineWriter.flush();
+			for(int h = 0; h < rItems.size(); h++) {
+				newLineWriter.print(rItems.get(h).getProductName());
+				newLineWriter.flush();
+				newLineWriter.print("," + rItems.get(h).getReorderAmount());
+				newLineWriter.flush();
+				newLineWriter.print("," + rItems.get(h).getTemperatureCel() + "\n");
+				System.out.println(rItems.get(h).getTemperatureCel());
+			}
 
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		return capitalSalesTotal;
+
 	}
 
-	public int parseManifestInitialCapital(File manifest) {
+	public void setInitialInvent(File inventProp) {
+		//set the initial inventory!!
 		BufferedReader reader = null;
 		try {
-			capitalSalesTotal = 0;
-			reader =  new BufferedReader(new FileReader(manifest));
-			String theLine;
-			while((theLine = reader.readLine()) != null){
-				String[] tempHold = theLine.split("[,\\s]+");
-				if(tempHold[1] != null) {
-					capitalSalesTotal = capitalSalesTotal + Integer.parseInt(tempHold[1]);
+			reader = new BufferedReader(new FileReader("CSV's\\manifest.csv"));
+			String readTheLine = "";
+			while((readTheLine = reader.readLine()) != null) {
+				String[] tempValues = readTheLine.split("[,]+");
+				String ObjectNameTemp = tempValues[0];
+				if(tempValues.length - 1 == 4) {
+					double tempDoubleA = Double.parseDouble(tempValues[1]);
+					double tempDoubleB = Double.parseDouble(tempValues[2]);
+					double tempDoubleC = Double.parseDouble(tempValues[3]);
+					double tempDoubleD = Double.parseDouble(tempValues[4]);
+					Item objectNameTemp = new Item(tempValues[0], tempDoubleA, tempDoubleB, tempDoubleC, tempDoubleD);
+					objectNames.add(objectNameTemp);
+				} else if(tempValues.length - 1 == 5) {
+					double tempDoubleA = Double.parseDouble(tempValues[1]);
+					double tempDoubleB = Double.parseDouble(tempValues[2]);
+					double tempDoubleC = Double.parseDouble(tempValues[3]);
+					double tempDoubleD = Double.parseDouble(tempValues[4]);
+					double tempDoubleE = Double.parseDouble(tempValues[5]);
+					Item objectNameTemp = new Item(tempValues[0], tempDoubleA, tempDoubleB, tempDoubleC, tempDoubleD, tempDoubleE);
+					objectNames.add(objectNameTemp);
 				}
 			}
-			return capitalSalesTotal;
-		} catch(IOException e){
+
+		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		return capitalSalesTotal;
-	}
 
+
+	}
 
 }

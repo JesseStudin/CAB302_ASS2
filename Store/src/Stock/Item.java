@@ -58,6 +58,9 @@ public class Item {
 		this.reorderPoint = reorderPoint;
 	}
 
+	public void setTemperatureCel(double temperatureCel) {
+		this.temperatureCel = temperatureCel;
+	}
 	//getters
 	public String getProductName() {
 		return this.productName;
@@ -77,6 +80,10 @@ public class Item {
 
 	public double getReorderPoint() {
 		return this.reorderAmount;
+	}
+
+	public double getTemperatureCel() {
+		return this.temperatureCel;
 	}
 
 }

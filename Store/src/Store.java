@@ -8,7 +8,7 @@ public class Store {
 
 	//set private globals
 	private Store firstInstance = null;
-	private int storeCapital;
+	private int storeCapital = 100000;
 	private String name;
 	private ParseAWrite parse = new ParseAWrite();
 
@@ -33,34 +33,17 @@ public class Store {
 		return this.name;
 	}
 
-	public void getInventory(File manifest) {
-		BufferedReader reader = null;
-		try {
-			reader = new BufferedReader(new FileReader(manifest));
-			String checkNull = reader.readLine();
-			while((checkNull != null)) {
-				List<String> inventValue = new ArrayList<String>();
-				inventValue.add(reader.readLine());
-				System.out.print(inventValue.get(0) + "=" +inventValue.get(1));
-				if(checkNull != null) {
-					System.out.print(", ");
-				}
-			}
-
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-
+	public void setInventory(File inventProp) {
+		double initialCost = parse.setInitialInvent(inventProp);
+		this.storeCapital = this.storeCapital - (int)initialCost;
 	}
 
-	//get value from parse and write
-	public void setStoreInitialCapital(File manifest) {
-
+	public int getCapital() {
+		return this.storeCapital;
 	}
 
-	//get value from parse and write
-	public void setStoreSaleCapital(File saleManifest) {
-
+	public void setCapital(int payment) {
+		this.storeCapital = this.storeCapital + payment;
 	}
 
 }

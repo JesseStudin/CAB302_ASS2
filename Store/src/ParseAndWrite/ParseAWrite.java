@@ -61,6 +61,8 @@ public class ParseAWrite {
 				newLineWriter.print("," + rItems.get(h).getTemperatureCel() + "\n");
 				System.out.println(rItems.get(h).getTemperatureCel());
 			}
+			newLineWriter.flush();
+			newLineWriter.close();
 
 		} catch(IOException e) {
 			e.printStackTrace();
@@ -68,7 +70,7 @@ public class ParseAWrite {
 
 	}
 
-	public void setInitialInvent(File inventProp) {
+	public double setInitialInvent(File inventProp) {
 		//set the initial inventory!!
 		BufferedReader reader = null;
 		try {
@@ -94,12 +96,16 @@ public class ParseAWrite {
 					objectNames.add(objectNameTemp);
 				}
 			}
+			int total =  0;
+			for(int i = 0; i < objectNames.size(); i++) {
+				total = total + (int)((int)objectNames.get(i).getManufacterCost() * (int)objectNames.get(i).getReorderAmount());
+			}
+			return (int)total;
 
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-
-
+		return 0;
 	}
 
 }

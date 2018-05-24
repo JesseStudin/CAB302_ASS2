@@ -75,7 +75,7 @@ public class Manifest {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
-		return 0;
+		
 	}
 
 	//sales manifest

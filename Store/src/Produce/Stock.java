@@ -32,12 +32,30 @@ public class Stock {
 	}
 	
 	
-	//currently editing
-	public void showInventory(int i) {
+	//this should return the show inventory
+	//you'll probably need to run a for loop and 
+	//and the function below returns the object amount to use a '
+	//for(int i = 0; i < [functionbelow]
+	
+	public String[] showInventory(int i) {
 		String[] holdValues = new String[objectNames.size()];
 		holdValues[0] = objectNames.get(i).getName();
 		holdValues[1] = Integer.toString(objectNames.get(i).getQuantity());
 		holdValues[2] = Double.toString(objectNames.get(i).getCost());
+		holdValues[3] = Double.toString(objectNames.get(i).getsellPrice());
+		holdValues[4] = Integer.toString(objectNames.get(i).getReorderPoint());
+		holdValues[5] = Integer.toString(objectNames.get(i).getReorderAmount());
+		if(objectNames.get(i).getTemperatureCheck() == false) {
+			holdValues[6] = Double.toString(0.0);
+		} else {
+			holdValues[6] = Double.toString(objectNames.get(i).getTemperatureCel());
+		}
+		return holdValues;
+	}
+	//use this to create all the objects! i is the 
+	//current for loop counter in gui 
+	public int getObjectAmount() {
+		return objectNames.size();
 	}
 	
 	//use this to initiliase

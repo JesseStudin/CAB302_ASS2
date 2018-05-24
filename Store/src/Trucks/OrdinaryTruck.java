@@ -1,7 +1,4 @@
-package com.JesseStudin.Trucks;
-
-import com.JesseStudin.Produce.Stock;
-import com.JesseStudin.SuperMarket.Store;
+package Trucks;
 
 import java.lang.Math;
 public class OrdinaryTruck extends Truck {

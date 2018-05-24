@@ -1,4 +1,4 @@
-package com.JesseStudin.Trucks;
+package Trucks;
 
 public abstract class Truck {
 

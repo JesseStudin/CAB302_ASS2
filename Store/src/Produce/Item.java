@@ -1,4 +1,4 @@
-package com.JesseStudin.Produce;
+package Produce;
 
 public class Item {
 

@@ -1,4 +1,4 @@
-package com.JesseStudin.SuperMarket;
+package SuperMarket;
 
 public class Store {
 

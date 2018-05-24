@@ -1,8 +1,8 @@
-package com.JesseStudin.Produce;
+package Produce;
 
-import com.JesseStudin.Manifests.Manifest;
-import com.JesseStudin.SuperMarket.Store;
-import com.JesseStudin.Trucks.OrdinaryTruck;
+import Manifests.Manifest;
+import SuperMarket.Store;
+import Trucks.OrdinaryTruck;
 
 import java.io.File;
 import java.util.*;

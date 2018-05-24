@@ -1,6 +1,6 @@
-package com.JesseStudin.Manifests;
+package Manifests;
 
-import com.JesseStudin.Produce.Item;
+import Produce.Item;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
-package com.JesseStudin.Manifests;
+package Manifests;
 
-import com.JesseStudin.Produce.Item;
+import Produce.Item;
 
 import java.io.*;
 import java.util.*;
@@ -68,6 +68,7 @@ public class Manifest {
 			for(int i = 0; i < objectNames.size(); i++) {
 				total = total + (int)((int)objectNames.get(i).getCost() * (int)objectNames.get(i).getReorderAmount());
 			}
+			reader.close();
 			return (int)total;
 
 		} catch(IOException e) {

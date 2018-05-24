@@ -10,6 +10,13 @@ public class Manifest {
 	public List<Item> objectNames = new ArrayList<Item>();
 	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>(objectNames.size());
 
+	private static Manifest instance = new Manifest();
+
+	private Manifest();
+
+	public static Manifest getInstance() {
+		return instance;
+	}
 
 	public List<Item> getItem() {
 		return objectNames;

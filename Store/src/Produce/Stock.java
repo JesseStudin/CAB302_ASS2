@@ -13,7 +13,7 @@ public class Stock {
 	//reset this list every now and again
 	private LinkedHashMap<String, Integer> updateStock = new LinkedHashMap<>();
 	private Map<String, Integer> reorderAmounts = new HashMap();
-	private Manifest maniTemp = Manifest.getInstance();
+	private Manifest maniTemp = new Manifest();
 	private Map inventStore = new HashMap();
 	private double cargoTotalOrd;
 	private int ordCargo;
@@ -61,6 +61,10 @@ public class Stock {
 		Store store = Store.getInstance();
 		store.setCapital(cargoTot);
 
+	}
+	
+	public void salesLog(File salesLog) {
+		
 	}
 
 	public double getCargoOrd() {

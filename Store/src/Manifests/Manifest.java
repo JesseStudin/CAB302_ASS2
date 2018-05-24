@@ -9,14 +9,8 @@ public class Manifest {
 
 	public List<Item> objectNames = new ArrayList<Item>();
 	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>(objectNames.size());
+	public LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>(objectNames.size());
 
-	private static Manifest instance = new Manifest();
-
-	private Manifest();
-
-	public static Manifest getInstance() {
-		return instance;
-	}
 
 	public List<Item> getItem() {
 		return objectNames;
@@ -26,6 +20,11 @@ public class Manifest {
 		CSVWriteParse writer = new CSVWriteParse();
 		writer.writeManifest();
 		writer = null;
+	}
+	
+	public void salesLog(File salesLog) {
+		CSVWriteParse writer = new CSVWriteParse();
+		writer.salesLog(salesLog);
 	}
 
 	public LinkedHashMap<String, Integer> openManifest(File delManifest) {

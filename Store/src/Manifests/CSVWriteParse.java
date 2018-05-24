@@ -65,6 +65,21 @@ public class CSVWriteParse extends Manifest{
 			e.printStackTrace();
 		}
 	}
+	
+	public void readSalesLog(File salesLog) {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(salesLog));
+			String readTheLine = "";
+			while((readTheLine = reader.readLine()) != null){
+				String[] tempValues = readTheLine.split("[,]+");
+				int tempInt = Integer.parseInt(tempValues[1]);
+				salesValues.put(tempValues[0],  tempInt);
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 
 	public void readManifest(File delManifest) {
@@ -78,6 +93,7 @@ public class CSVWriteParse extends Manifest{
 				int tempInt = Integer.parseInt(tempValues[1]);
 				manifestValues.put(tempValues[0], tempInt);
 			}
+			reader.close();
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -48,7 +48,7 @@ public class Stock {
 		maniTemp.stockOrder();
 	}
 
-	public double manifestDelivered(File delManifest) {
+	public void manifestDelivered(File delManifest) {
 		updateStock = maniTemp.openManifest(delManifest);
 		double cargoSum = 0;
 		for(int i = 0; i < updateStock.size(); i++) {
@@ -58,7 +58,8 @@ public class Stock {
 		OrdinaryTruck ordTruck = new OrdinaryTruck();
 		//haven't added refridgerated Truck Yet
 		double cargoTot = ordTruck.truckCost(cargoSum);
-		return cargoTot;
+		Store store = Store.getInstance();
+		store.setCapital(cargoTot);
 
 	}
 

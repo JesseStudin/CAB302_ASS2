@@ -30,10 +30,26 @@ public class Stock {
 			}
 		}
 	}
-
+	
+	
+	//currently editing
+	public void showInventory(int i) {
+		String[] holdValues = new String[objectNames.size()];
+		holdValues[0] = objectNames.get(i).getName();
+		holdValues[1] = Integer.toString(objectNames.get(i).getQuantity());
+		holdValues[2] = Double.toString(objectNames.get(i).getCost());
+	}
+	
+	//use this to initiliase
+	public void initialise(File inventProp) {
+		maniTemp.setInitialInvent(inventProp);
+	}
+	
 	//stock value
 
 
+	
+	//create manifest for reorder!
 	public void stockOrder() {
 		//create instance of manifest
 		//remove all current order Information with new information
@@ -48,6 +64,9 @@ public class Stock {
 		maniTemp.stockOrder();
 	}
 
+	
+	//this updates the store total
+	//use this when reloading the manifest (delivered)
 	public void manifestDelivered(File delManifest) {
 		updateStock = maniTemp.openManifest(delManifest);
 		double cargoSum = 0;

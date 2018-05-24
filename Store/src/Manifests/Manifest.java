@@ -42,7 +42,7 @@ public class Manifest {
 	//this will parse the manifest and update the manifest hash accordingly
 
 
-	public double setInitialInvent(File inventProp) {
+	public void setInitialInvent(File inventProp) {
 		//set the initial inventory!!
 		BufferedReader reader = null;
 		try {
@@ -69,14 +69,9 @@ public class Manifest {
 					Item objectNameTemp = new Item(tempValues[0], tempQuantity, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
 					objectNames.add(objectNameTemp);
 				}
-			}
-			int total =  0;
-			for(int i = 0; i < objectNames.size(); i++) {
-				total = total + (int)((int)objectNames.get(i).getCost() * (int)objectNames.get(i).getReorderAmount());
-			}
+			}	
 			reader.close();
-			return (int)total;
-
+		
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -53,7 +53,7 @@ public class Supermart extends JFrame{
 	    
 	   
 	    table = new JTable(model);
-	    /*
+
 	    JButton addButton = new JButton("Add Item");
 	    JPanel inputPanel = new JPanel();
 	    JTextField t1;
@@ -64,9 +64,7 @@ public class Supermart extends JFrame{
 	    addButton.addActionListener(new ActionListener() {
 
 	      public void actionPerformed(ActionEvent event) {
-<<<<<<< HEAD
-	    	  
-=======
+
 	    	  System.out.println("Entered AddItem ");
 	    	
 	    	  if(stock.getObjectAmount() > 0) {
@@ -79,7 +77,7 @@ public class Supermart extends JFrame{
 			      }
 			      t1.setText(store.getCapital());
 	    	  }
->>>>>>> origin/WorkInProgress
+
 	    	  	
 	      }
 	    });
@@ -92,15 +90,13 @@ public class Supermart extends JFrame{
 	        model.removeRow(table.getSelectedRow());
 	      }
 	    });
-<<<<<<< HEAD
-	    */
-	    JPanel inputPanel = new JPanel();
-=======
-	    
->>>>>>> origin/WorkInProgress
-	    
-	    //inputPanel.add(addButton);
-	    //inputPanel.add(removeButton);
+
+
+	   
+
+		    
+	    inputPanel.add(addButton);
+	    inputPanel.add(removeButton);
 	    
 	    
 
@@ -135,7 +131,6 @@ public class Supermart extends JFrame{
         	System.out.println("Entered item_properties");
         	File createfile = new File("src\\CSV's\\item_properties.csv");
         	stock.initialise(createfile);
-<<<<<<< HEAD
         	
         	System.out.println("Entered AddItem ");
 	    	  if(stock.getObjectAmount() > 0) {
@@ -147,9 +142,9 @@ public class Supermart extends JFrame{
 				      model.addRow(item);
 			      }
 	    	  }
-=======
+
         	store.getCapital();
->>>>>>> origin/WorkInProgress
+
         });
         
         //Load Manifests Menu:

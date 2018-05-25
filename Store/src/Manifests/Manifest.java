@@ -34,6 +34,9 @@ public class Manifest {
 	public LinkedHashMap<String, Integer> openManifest(File delManifest) {
 		CSVWriteParse reader = new CSVWriteParse();
 		reader.openManifest(delManifest);
+		for(int i = 0; i < manifestValues.size(); i++) {
+			System.out.println(manifestValues.get(i));
+		}
 		reader = null;
 		return manifestValues;
 	}
@@ -63,7 +66,7 @@ public class Manifest {
 					int tempReorderPoint = Integer.parseInt(tempValues[3]);
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					Item objectNameTemp = new Item(tempValues[0], tempIntA, tempDoubleB, tempDoubleC, tempReorderPoint, tempReorderAmount);
-					objectNames.add(counter, objectNameTemp);
+					objectNames.add(objectNameTemp);
 					counter++;
 				} else if(tempValues.length - 1 == 5) {
 					int tempQuantity = Integer.parseInt(tempValues[4]);
@@ -73,16 +76,18 @@ public class Manifest {
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					double tempTemperature = Double.parseDouble(tempValues[5]);
 					Item objectNameTemp = new Item(tempValues[0], tempQuantity, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
-					objectNames.add(counter, objectNameTemp);
+					objectNames.add(objectNameTemp);
 					counter++;
 				}
-			}	
+			}
 			reader.close();
+			StoreItems itemStore = StoreItems.getInstance();
+			itemStore.setObjectNames(objectNames);
 			return objectNames;
-		
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Shouldn't be here");
 		return objectNames;
 		
 	}

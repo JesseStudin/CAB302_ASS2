@@ -18,10 +18,13 @@ public class CSVWriteParse extends Manifest{
 
 	public void writeManifest() {
 		try {
-			PrintWriter newLineWriter = new PrintWriter(new FileWriter("manifest.csv"));
+			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));
+			System.out.println("Created Manifest");
 			//how about sorting the temp and normal into two different Lists
 			List<Item> normalItems = new ArrayList<Item>();
 			List<Item> rItems = new ArrayList<Item>();
+			StoreItems storeItems = StoreItems.getInstance();
+			objectNames = storeItems.getObjectNames();
 			int counter = 0;
 			//first sort them into lists
 			for(int i = 0; i < objectNames.size(); i++) {
@@ -46,7 +49,7 @@ public class CSVWriteParse extends Manifest{
 				newLineWriter.flush();
 			}
 			//Refridgerated Truck
-			newLineWriter.println("Refridgerated Truck\n");
+			newLineWriter.print("Refridgerated Truck\n");
 			newLineWriter.flush();
 			for(int h = 0; h < rItems.size(); h++) {
 				newLineWriter.print(rItems.get(h).getName());

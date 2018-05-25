@@ -1,14 +1,14 @@
 package SuperMarket;
 
-import java.awt.BorderLayout;
+//Import Java AWT and IO Packages.
+import java.awt.*;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+//Import JavaX Swing Files.
+import javax.swing.*;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,15 +22,16 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
-import SuperMarket.Store;
+//Import Other Relevant Packages.
+import Produce.Stock;
 
 public class Store extends JFrame
 {
-	//Misc:
+	//Miscellaneous:
 	private double capital = 100000.00;
 	private static final long serialVersionUID = 1L;
-	private Produce.Stock stock = new Produce.Stock();
-	private SuperMarket.Store store = Store.getInstance();
+	private Stock stock;
+	private Store store;
 	private static Store instance = new Store();
 	
 	//UI Items:
@@ -55,9 +56,11 @@ public class Store extends JFrame
 	private int loadPropertiesReturnValue;
 	private File selectedFile;
 	
-	
-	
-	private Store() {}
+	private Store()
+	{
+		stock = new Produce.Stock();
+		store = Store.getInstance();
+	}
 
 	public static Store getInstance()
 	{
@@ -174,13 +177,13 @@ public class Store extends JFrame
 		
 		if(stock.getObjectAmount() > 0)
 		{
-		      for(int i = 0; i < stock.getObjectAmount(); i++)
-		      {
-		    	  System.out.println(stock.getObjectAmount());
-		    	  String[] item = { "", "", "", "", "", "", "" };
-		    	  item = stock.showInventory(i);
-		    	  tableModel.addRow(item);
-		      }
+	      for(int i = 0; i < stock.getObjectAmount(); i++)
+	      {
+	    	  System.out.println(stock.getObjectAmount());
+	    	  String[] item = { "", "", "", "", "", "", "" };
+	    	  item = stock.showInventory(i);
+	    	  tableModel.addRow(item);
+	      }
   	  }
 		capitalValue.setText(getCapital());
 	}
@@ -205,7 +208,4 @@ public class Store extends JFrame
 	{
 		this.capital = this.capital - amount;
 	}
-
-
 }
-

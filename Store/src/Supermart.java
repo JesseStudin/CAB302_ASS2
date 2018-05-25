@@ -55,26 +55,17 @@ public class Supermart extends JFrame{
 	    model.addRow(frozenvegetablemix);
 
 	    table = new JTable(model);
-
+	    /*
 	    JButton addButton = new JButton("Add Item");
 	    
 	    addButton.addActionListener(new ActionListener() {
 
 	      public void actionPerformed(ActionEvent event) {
-	    	  System.out.println("Entered AddItem ");
-	    	  if(stock.getObjectAmount() > 0) {
-	    		  System.out.println("Entered if loop");
-			      for(int i = 0; i < stock.getObjectAmount(); i++) {
-			    	  System.out.println(stock.getObjectAmount());
-			    	  String[] item = { "", "", "", "", "", "", "" };
-			    	  item = stock.showInventory(i);
-				      model.addRow(item);
-			      }
-	    	  }
+	    	  
 	    	  	
 	      }
 	    });
-
+	     
 	    JButton removeButton = new JButton("Remove Selected Item");
 
 	    removeButton.addActionListener(new ActionListener() {
@@ -83,10 +74,11 @@ public class Supermart extends JFrame{
 	        model.removeRow(table.getSelectedRow());
 	      }
 	    });
+	    */
 	    JPanel inputPanel = new JPanel();
 	    
-	    inputPanel.add(addButton);
-	    inputPanel.add(removeButton);
+	    //inputPanel.add(addButton);
+	    //inputPanel.add(removeButton);
 	    
 	    JTextField t1;
 		t1=new JTextField("$1,000,000,00");
@@ -112,7 +104,7 @@ public class Supermart extends JFrame{
 
         // Menu Items:
         JMenuItem loadMenuItemProperties = new JMenuItem("Load Item Properties"); 
-        JMenuItem loadMenuManifests = new JMenuItem("Load Manifest"); 
+        JMenuItem loadMenuManifests = new JMenuItem("Export Manifest"); 
         JMenuItem loadMenuSalesLogs = new JMenuItem("Load Sales Log"); 
         JMenuItem eMenuItem = new JMenuItem("Exit", exitIcon);
         
@@ -124,6 +116,17 @@ public class Supermart extends JFrame{
         	System.out.println("Entered item_properties");
         	File createfile = new File("src\\CSV's\\item_properties.csv");
         	stock.initialise(createfile);
+        	
+        	System.out.println("Entered AddItem ");
+	    	  if(stock.getObjectAmount() > 0) {
+	    		  System.out.println("Entered if loop");
+			      for(int i = 0; i < stock.getObjectAmount(); i++) {
+			    	  System.out.println(stock.getObjectAmount());
+			    	  String[] item = { "", "", "", "", "", "", "" };
+			    	  item = stock.showInventory(i);
+				      model.addRow(item);
+			      }
+	    	  }
         });
         
         //Load Manifests Menu:
@@ -163,7 +166,7 @@ public class Supermart extends JFrame{
 	
 	private void LoadManifests()
 	{
-		
+		stock.stockOrder();
 	}
 	
 	private void LoadSalesLogs()

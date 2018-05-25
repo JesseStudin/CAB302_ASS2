@@ -51,17 +51,35 @@ public class Supermart extends JFrame{
 	    model.addColumn("Re-Order Amount");
 	    model.addColumn("Temperature");
 	    
-	    String[] frozenvegetablemix = { "frozen vegetable mix", "88", "5", "8", "255", "325", "-12" };
-	    model.addRow(frozenvegetablemix);
-
+	   
 	    table = new JTable(model);
 	    /*
 	    JButton addButton = new JButton("Add Item");
+	    JPanel inputPanel = new JPanel();
+	    JTextField t1;
+		t1=new JTextField(store.getCapital());
+		t1.setBounds(50,100, 200,30);
+		inputPanel.add(t1);
 	    
 	    addButton.addActionListener(new ActionListener() {
 
 	      public void actionPerformed(ActionEvent event) {
+<<<<<<< HEAD
 	    	  
+=======
+	    	  System.out.println("Entered AddItem ");
+	    	
+	    	  if(stock.getObjectAmount() > 0) {
+	    		  System.out.println("Entered if loop");
+			      for(int i = 0; i < stock.getObjectAmount(); i++) {
+			    	  System.out.println(stock.getObjectAmount());
+			    	  String[] item = { "", "", "", "", "", "", "" };
+			    	  item = stock.showInventory(i);
+				      model.addRow(item);
+			      }
+			      t1.setText(store.getCapital());
+	    	  }
+>>>>>>> origin/WorkInProgress
 	    	  	
 	      }
 	    });
@@ -74,16 +92,17 @@ public class Supermart extends JFrame{
 	        model.removeRow(table.getSelectedRow());
 	      }
 	    });
+<<<<<<< HEAD
 	    */
 	    JPanel inputPanel = new JPanel();
+=======
+	    
+>>>>>>> origin/WorkInProgress
 	    
 	    //inputPanel.add(addButton);
 	    //inputPanel.add(removeButton);
 	    
-	    JTextField t1;
-		t1=new JTextField("$1,000,000,00");
-		t1.setBounds(50,100, 200,30);
-		inputPanel.add(t1);
+	    
 
 	    Container container = getContentPane();
 	    container.add(new JScrollPane(table), BorderLayout.CENTER);
@@ -116,6 +135,7 @@ public class Supermart extends JFrame{
         	System.out.println("Entered item_properties");
         	File createfile = new File("src\\CSV's\\item_properties.csv");
         	stock.initialise(createfile);
+<<<<<<< HEAD
         	
         	System.out.println("Entered AddItem ");
 	    	  if(stock.getObjectAmount() > 0) {
@@ -127,6 +147,9 @@ public class Supermart extends JFrame{
 				      model.addRow(item);
 			      }
 	    	  }
+=======
+        	store.getCapital();
+>>>>>>> origin/WorkInProgress
         });
         
         //Load Manifests Menu:

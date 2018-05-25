@@ -13,8 +13,9 @@ public class Store {
 
 	private double capital = 100000.00;
 
-	public double getCapital() {
-		return this.capital;
+	public String getCapital() {
+		String tempHold = Double.toString(this.capital);
+		return tempHold;
 	}
 
 	public void setCapital(double amount) {

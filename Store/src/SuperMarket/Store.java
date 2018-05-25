@@ -26,6 +26,8 @@ import SuperMarket.Store;
 
 public class Store extends JFrame
 {
+	//Misc:
+	private double capital = 100000.00;
 	private static final long serialVersionUID = 1L;
 	private Produce.Stock stock = new Produce.Stock();
 	private SuperMarket.Store store = Store.getInstance();
@@ -53,8 +55,7 @@ public class Store extends JFrame
 	private int loadPropertiesReturnValue;
 	private File selectedFile;
 	
-	//Misc:
-	private double capital = 100000.00;
+	
 	
 	private Store() {}
 
@@ -89,7 +90,7 @@ public class Store extends JFrame
 
 	    inputPanel = new JPanel();
 	    capitalLabel = new JLabel("Store Capital");
-	    capitalValue = new JTextField(store.getCapital());
+	    capitalValue = new JTextField(getCapital());
 	    
 	    capitalValue.setBounds(100,100, 200,30);
 	    
@@ -181,7 +182,7 @@ public class Store extends JFrame
 		    	  tableModel.addRow(item);
 		      }
   	  }
-		capitalValue.setText(store.getCapital());
+		capitalValue.setText(getCapital());
 	}
 	
 	private void LoadManifests()

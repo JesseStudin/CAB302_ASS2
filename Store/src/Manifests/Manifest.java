@@ -26,6 +26,10 @@ public class Manifest {
 		CSVWriteParse writer = new CSVWriteParse();
 		writer.salesLog(salesLog);
 	}
+	
+	public List<Item> getObjectList() {
+		return this.objectNames;
+	}
 
 	public LinkedHashMap<String, Integer> openManifest(File delManifest) {
 		CSVWriteParse reader = new CSVWriteParse();
@@ -42,12 +46,13 @@ public class Manifest {
 	//this will parse the manifest and update the manifest hash accordingly
 
 
-	public void setInitialInvent(File inventProp) {
+	public List<Item> setInitialInvent(File inventProp) {
 		//set the initial inventory!!
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(inventProp));
 			String readTheLine = "";
+			int counter = 0;
 			while((readTheLine = reader.readLine()) != null) {
 				String[] tempValues = readTheLine.split("[,]+");
 				String ObjectNameTemp = tempValues[0];
@@ -58,7 +63,8 @@ public class Manifest {
 					int tempReorderPoint = Integer.parseInt(tempValues[3]);
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					Item objectNameTemp = new Item(tempValues[0], tempIntA, tempDoubleB, tempDoubleC, tempReorderPoint, tempReorderAmount);
-					objectNames.add(objectNameTemp);
+					objectNames.add(counter, objectNameTemp);
+					counter++;
 				} else if(tempValues.length - 1 == 5) {
 					int tempQuantity = Integer.parseInt(tempValues[4]);
 					double tempDoubleA = Double.parseDouble(tempValues[1]);
@@ -67,14 +73,17 @@ public class Manifest {
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					double tempTemperature = Double.parseDouble(tempValues[5]);
 					Item objectNameTemp = new Item(tempValues[0], tempQuantity, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
-					objectNames.add(objectNameTemp);
+					objectNames.add(counter, objectNameTemp);
+					counter++;
 				}
 			}	
 			reader.close();
+			return objectNames;
 		
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
+		return objectNames;
 		
 	}
 

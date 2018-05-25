@@ -3,6 +3,7 @@ import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import SuperMarket.Store;
+
 public class Supermart extends JFrame{
 
 	/**
@@ -24,6 +27,8 @@ public class Supermart extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private DefaultTableModel model;
 	private JTable table;
+	private Produce.Stock stock = new Produce.Stock();
+	private SuperMarket.Store store = Store.getInstance();
 	
 	public Supermart() {
 		
@@ -31,7 +36,6 @@ public class Supermart extends JFrame{
 
 	public static void main(String[] args) {
 		Supermart supermart = new Supermart();
-		
 		supermart.RenderUI();
 		supermart.createMenuBar();
 	}
@@ -57,8 +61,17 @@ public class Supermart extends JFrame{
 	    addButton.addActionListener(new ActionListener() {
 
 	      public void actionPerformed(ActionEvent event) {
-	        String[] item = { "", "", "", "", "", "", "" };
-	        model.addRow(item);
+	    	  System.out.println("Entered AddItem ");
+	    	  if(stock.getObjectAmount() > 0) {
+	    		  System.out.println("Entered if loop");
+			      for(int i = 0; i < stock.getObjectAmount(); i++) {
+			    	  System.out.println(stock.getObjectAmount());
+			    	  String[] item = { "", "", "", "", "", "", "" };
+			    	  item = stock.showInventory(i);
+				      model.addRow(item);
+			      }
+	    	  }
+	    	  	
 	      }
 	    });
 
@@ -108,7 +121,9 @@ public class Supermart extends JFrame{
         //Load Properties Menu:
         loadMenuItemProperties.setToolTipText("Load in an Item Properties File");
         loadMenuItemProperties.addActionListener((ActionEvent event) -> {
-        	LoadItemProperties();
+        	System.out.println("Entered item_properties");
+        	File createfile = new File("src\\CSV's\\item_properties.csv");
+        	stock.initialise(createfile);
         });
         
         //Load Manifests Menu:

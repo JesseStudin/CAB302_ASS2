@@ -60,7 +60,15 @@ public class Stock {
 	
 	//use this to initiliase
 	public void initialise(File inventProp) {
-		maniTemp.setInitialInvent(inventProp);
+		objectNames = maniTemp.setInitialInvent(inventProp);
+		
+		//current capital after prop
+		double currentValue = 0;
+		for(int i = 0; i < getObjectAmount(); i++) {
+			currentValue = currentValue + ((double)objectNames.get(i).getCost() * objectNames.get(i).getQuantity());
+		}
+		Store store = Store.getInstance();
+		store.setCapital(currentValue);
 	}
 	
 	//stock value

@@ -29,7 +29,6 @@ import SuperMarket.Store;
 public class SuperMarketUI extends JFrame
 {
 	//Miscellaneous:
-	private double capital = 100000.00;
 	private static final long serialVersionUID = 1L;
 	private Stock stock;
 	private Store store;

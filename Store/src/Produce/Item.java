@@ -86,8 +86,12 @@ public class Item {
 		this.temperaturecel = temperaturecel;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setQuantitySale(int quantity) {
+		this.quantity = this.quantity + quantity;
+	}
+	
+	public void setQuantityManifest(int quantity) {
+		this.quantity = this.quantity - quantity;
 	}
 	
 

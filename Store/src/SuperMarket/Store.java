@@ -24,4 +24,8 @@ public class Store
 	{
 		this.capital = this.capital - amount;
 	}
+	
+	public void setCapitalProfit(double amount) {
+		this.capital = this.capital + amount;
+	}
 }

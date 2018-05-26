@@ -5,42 +5,37 @@ import Produce.Item;
 import java.io.*;
 import java.util.*;
 
-public class Manifest {
+import ParseAndWrite.CSVWriteParse;
 
+public class Manifest {
+	CSVWriteParse reader = new CSVWriteParse();
 	public List<Item> objectNames = new ArrayList<Item>();
-	private StoreItems storedItems = StoreItems.getInstance();
-	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>(storedItems.getObjectNames().size());
-	public List<String> salesNames = new ArrayList<String>();
+	public StoreItems storedItems = StoreItems.getInstance();
+	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>();
+	public LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>();
 
 
 	public List<Item> getItem() {
 		return objectNames;
 	}
 
-	public void stockOrder(Map<String, Integer> reorderAmount){
-		CSVWriteParse writer = new CSVWriteParse();
-		writer.writeManifest(reorderAmount);
-		writer = null;
+	public void stockOrder(){
+		reader.writeManifest();
 	}
 	
 	public void salesLog(File salesLog) {
-		CSVWriteParse writer = new CSVWriteParse();
-		writer.salesLog(salesLog);
-		writer = null;
+		System.out.println("Entered Manifest");
+		reader.readSalesLog(salesLog);
 	}
 	
 	public List<Item> getObjectList() {
 		return this.objectNames;
 	}
 
-	public LinkedHashMap<String, Integer> openManifest(File delManifest) {
-		CSVWriteParse reader = new CSVWriteParse();
-		reader.openManifest(delManifest);
-		for(int i = 0; i < manifestValues.size(); i++) {
-			System.out.println(manifestValues.get(i));
-		}
+	public void openManifest(File delManifest) {
+		reader.readManifest(delManifest);
 		reader = null;
-		return manifestValues;
+		
 	}
 
 	public void updateStock(){

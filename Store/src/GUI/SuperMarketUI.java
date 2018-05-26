@@ -32,6 +32,7 @@ public class SuperMarketUI extends JFrame
 	private static final long serialVersionUID = 1L;
 	private Stock stock;
 	private Store store;
+	public int count = 0;
 	
 	//UI Items:
 	private DefaultTableModel tableModel;
@@ -204,8 +205,9 @@ public class SuperMarketUI extends JFrame
 	
 	private void LoadItemProperties()
 	{
-		selectedFile = loadPropertiesFileChooser.getSelectedFile();
-		
+//		selectedFile = loadPropertiesFileChooser.getSelectedFile();
+		//testing purposes
+		File selectedFile = new File("src\\CSV's\\item_properties.csv");
 		stock.initialise(selectedFile);
 		
 		if(stock.getObjectAmount() > 0)
@@ -227,12 +229,38 @@ public class SuperMarketUI extends JFrame
 	private void SaveManifests()
 	{
 		stock.stockOrder();
+		capitalValue.setText(store.getCapital());
 	}
 	
 	private void SaveSaleLogs()
 	{
-		File createFile = new File("src\\CSV's\\sales_log_0.csv");
-		stock.salesLog(selectedFile);
+		if(count == 0) {
+			File createFile = new File("src\\CSV's\\sales_log_0.csv");
+			stock.salesLog(createFile);
+			capitalValue.setText(store.getCapital());
+		} else if(count == 1) {
+			File createFile = new File("src\\CSV's\\sales_log_1.csv");
+			stock.salesLog(createFile);
+			capitalValue.setText(store.getCapital());
+			count++;
+		} else if(count == 2) {
+			File createFile = new File("src\\CSV's\\sales_log_2.csv");
+			stock.salesLog(createFile);
+			capitalValue.setText(store.getCapital());
+			count++;
+		} else if(count == 3) {
+			File createFile = new File("src\\CSV's\\sales_log_3.csv");
+			stock.salesLog(createFile);
+			capitalValue.setText(store.getCapital());
+			count++;
+		} else if(count == 4) {
+			File createFile = new File("src\\CSV's\\sales_log_4.csv");
+			stock.salesLog(createFile);
+			capitalValue.setText(store.getCapital());
+			count++;
+		}
+		
+		
 	}
 	
 	//Load Functions:
@@ -240,6 +268,8 @@ public class SuperMarketUI extends JFrame
 	private void LoadManifests()
 	{
 		selectedFile = loadManifestFileChooser.getSelectedFile();
+		File createFile = new File("src\\CSV's\\manifest00.csv");
+		stock.manifestDelivered(createFile);
 		
 		//TODO: add Relevant Function.
 	}

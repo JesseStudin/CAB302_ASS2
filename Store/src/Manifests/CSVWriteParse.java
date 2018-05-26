@@ -4,7 +4,9 @@ import Produce.Item;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CSVWriteParse extends Manifest{
 
@@ -15,8 +17,8 @@ public class CSVWriteParse extends Manifest{
 			return false;
 		}
 	}
-
-	public void writeManifest() {
+	
+	public void writeManifest(Map<String, Integer> reorderAmount) {
 		try {
 			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));
 			System.out.println("Created Manifest");
@@ -25,9 +27,10 @@ public class CSVWriteParse extends Manifest{
 			List<Item> rItems = new ArrayList<Item>();
 			StoreItems storeItems = StoreItems.getInstance();
 			objectNames = storeItems.getObjectNames();
+			Map<String, Integer> stockAmount = reorderAmount;
 			int counter = 0;
 			//first sort them into lists
-			for(int i = 0; i < objectNames.size(); i++) {
+			for(int i = 0; i < stockAmount.size(); i++) {
 				if (checkTemp(i) == true) {
 					rItems.add(objectNames.get(i));
 					counter++;
@@ -62,8 +65,6 @@ public class CSVWriteParse extends Manifest{
 			}
 			newLineWriter.flush();
 			newLineWriter.close();
-
-
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -74,11 +75,14 @@ public class CSVWriteParse extends Manifest{
 		try {
 			reader = new BufferedReader(new FileReader(salesLog));
 			String readTheLine = "";
+			StoreItems storedItems = StoreItems.getInstance();
+			LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>(storedItems.getObjectNames().size());
 			while((readTheLine = reader.readLine()) != null){
 				String[] tempValues = readTheLine.split("[,]+");
 				int tempInt = Integer.parseInt(tempValues[1]);
 				salesValues.put(tempValues[0],  tempInt);
 			}
+			storedItems.setQuantityValues(salesValues);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

@@ -156,7 +156,9 @@ public class Supermart extends JFrame{
         //Load Sales Logs Menu:
         loadMenuSalesLogs.setToolTipText("Load in a Sales Log File");
         loadMenuSalesLogs.addActionListener((ActionEvent event) -> {
-        	LoadSalesLogs();
+        	System.out.println("Entered SalesLog Function");
+        	File createFile = new File("src\\CSV's\\sales_log_0.csv");
+        	stock.salesLog(createFile);
         });
         
         //Exit Menu:

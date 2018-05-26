@@ -1,6 +1,7 @@
 package Produce;
 
 import Manifests.Manifest;
+import Manifests.StoreItems;
 import SuperMarket.Store;
 import Trucks.OrdinaryTruck;
 
@@ -12,16 +13,16 @@ public class Stock {
 	private List<Item> item = new ArrayList<Item>();
 	//reset this list every now and again
 	private LinkedHashMap<String, Integer> updateStock = new LinkedHashMap<>();
-	private Map<String, Integer> reorderAmounts = new HashMap();
+	private LinkedHashMap<String, Integer> reorderAmounts = new LinkedHashMap<>();
 	private Manifest maniTemp = new Manifest();
-	private Map inventStore = new HashMap();
+	private StoreItems storedItems = StoreItems.getInstance();
 	private double cargoTotalOrd;
 	private int ordCargo;
 	private int refridgeCargo;
 	private List<Item> objectNames = new ArrayList<Item>();
 
 	public void storeInventory() {
-		this.objectNames = maniTemp.getItem();
+		this.objectNames = storedItems.getObjectNames();
 		for(int i = 0; i < objectNames.size(); i++) {
 			objectNames.get(i).getName();
 			objectNames.get(i).getQuantity();
@@ -61,6 +62,14 @@ public class Stock {
 	//use this to initiliase
 	public void initialise(File inventProp) {
 		objectNames = maniTemp.setInitialInvent(inventProp);
+		storedItems.setObjectNames(objectNames);
+		List<Item> checkItWorked = new ArrayList<Item>();
+		checkItWorked = storedItems.getObjectNames();
+		System.out.println("Initialise Entered");
+		for(int i = 0; i < checkItWorked.size(); i++) {
+			System.out.println("Entered for loop");
+			System.out.println(checkItWorked.get(i));
+		}
 		
 		//current capital after prop
 		double currentValue = 0;
@@ -82,12 +91,20 @@ public class Stock {
 		for(int i = 0; i < reorderAmounts.size(); i++) {
 			reorderAmounts.remove(maniTemp.objectNames.get(i).getName());
 		}
-		for(int i = 0; i < maniTemp.objectNames.size(); i++) {
-			if(maniTemp.objectNames.get(i).getQuantity() <= maniTemp.objectNames.get(i).getReorderPoint()) {
+		List<String> reorderNames = new ArrayList();
+		objectNames = storedItems.getObjectNames();
+		for(int i = 0; i < objectNames.size(); i++) {
+			System.out.println("Entered for loop in stockOrder");
+			if(objectNames.get(i).getQuantity() <= objectNames.get(i).getReorderPoint()) {
+				System.out.println("Values were correct");
 				reorderAmounts.put(maniTemp.objectNames.get(i).getName(), maniTemp.objectNames.get(i).getReorderAmount());
+				reorderNames.add(objectNames.get(i).getName());
 			}
 		}
-		maniTemp.stockOrder();
+		for(int i = 0; i < reorderNames.size(); i++) {
+			System.out.println("First Name is: " + reorderNames.get(i));
+		}
+		maniTemp.stockOrder(reorderAmounts);
 	}
 
 	
@@ -109,7 +126,10 @@ public class Stock {
 	}
 	
 	public void salesLog(File salesLog) {
-		
+		maniTemp.salesLog(salesLog);
+		int capitalSum = 0;
+		Store store = Store.getInstance();
+		store.setCapital(capitalSum);
 	}
 
 	public double getCargoOrd() {

@@ -8,23 +8,25 @@ import java.util.*;
 public class Manifest {
 
 	public List<Item> objectNames = new ArrayList<Item>();
-	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>(objectNames.size());
-	public LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>(objectNames.size());
+	private StoreItems storedItems = StoreItems.getInstance();
+	public LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<>(storedItems.getObjectNames().size());
+	public List<String> salesNames = new ArrayList<String>();
 
 
 	public List<Item> getItem() {
 		return objectNames;
 	}
 
-	public void stockOrder(){
+	public void stockOrder(Map<String, Integer> reorderAmount){
 		CSVWriteParse writer = new CSVWriteParse();
-		writer.writeManifest();
+		writer.writeManifest(reorderAmount);
 		writer = null;
 	}
 	
 	public void salesLog(File salesLog) {
 		CSVWriteParse writer = new CSVWriteParse();
 		writer.salesLog(salesLog);
+		writer = null;
 	}
 	
 	public List<Item> getObjectList() {

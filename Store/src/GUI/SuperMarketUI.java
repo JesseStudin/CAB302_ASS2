@@ -254,7 +254,6 @@ public class SuperMarketUI extends JFrame
 		try
 		{
 			selectedManifestFile = loadManifestFileChooser.getSelectedFile();
-			File createFile = new File("src\\CSV's\\manifest00.csv");
 			stock.manifestDelivered(selectedManifestFile);
 		
 			if(stock.getObjectAmount() > 0)

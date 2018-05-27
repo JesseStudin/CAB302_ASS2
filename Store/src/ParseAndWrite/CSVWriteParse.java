@@ -26,7 +26,8 @@ public class CSVWriteParse {
 	
 	public void writeManifest() {
 		try {
-			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest00.csv"));
+			System.out.println("Entered Write Manifest");
+			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));
 			StoreItems storeitems = StoreItems.getInstance();
 			List<Item> objectNames = new ArrayList<>();
 			LinkedHashMap<String, Integer> reorderAmount = new LinkedHashMap<>();
@@ -34,9 +35,15 @@ public class CSVWriteParse {
 			objectNames = storeitems.getObjectNames();
 			reorderAmount = storeitems.getReorderAmounts();
 			reorderNames = storeitems.getReordernames();
+			System.out.println(reorderNames);
+			for(int k = 0; k < reorderNames.size(); k++) {
+				System.out.println("ReorderName = " + reorderNames.get(k));
+			}
 			List<Item> reorderObjects = new ArrayList<Item>();
 			List<Item> normalItems = new ArrayList<Item>();
 			List<Item> rItems = new ArrayList<Item>();
+			storeitems.setRItems(rItems);
+			storeitems.setNormalItems(normalItems);
 			int counter = 0;
 			for(int b = 0; b < reorderAmount.size(); b++) {
 				for(int j = 0; j < objectNames.size(); j++) {
@@ -132,12 +139,6 @@ public class CSVWriteParse {
 					continue;
 				}
 				System.out.println(tempValues[0]);
-				try {
-					System.out.println(tempValues[1]);
-				} catch (IndexOutOfBoundsException e) {
-					System.err.println("Out of bounds here: " + e.getMessage());
-					System.err.println((tempValues[0]));
-				}
 				String objectNameTemp = tempValues[0];
 				int tempInt = Integer.parseInt(tempValues[1]);
 				manifestValues.put(tempValues[0], tempInt);

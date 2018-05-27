@@ -11,11 +11,7 @@ import java.util.*;
 
 public class Stock {
 
-	private List<Item> item = new ArrayList<Item>();
 	//reset this list every now and again
-	private LinkedHashMap<String, Integer> updateStock = new LinkedHashMap<>();
-	private Manifest maniTemp = new Manifest();
-	private StoreItems storedItems = StoreItems.getInstance();
 	private double cargoTotalOrd;
 	private List<Item> objectNames = new ArrayList<Item>();
 
@@ -61,7 +57,9 @@ public class Stock {
 	
 	//use this to initiliase
 	public void initialise(File inventProp) {
-		objectNames = maniTemp.setInitialInvent(inventProp);
+		StoreItems storedItems = StoreItems.getInstance();
+		Manifest initialManifest = new Manifest();
+		objectNames = initialManifest.setInitialInvent(inventProp);
 		storedItems.setObjectNames(objectNames);
 		List<Item> checkItWorked = new ArrayList<Item>();
 		checkItWorked = storedItems.getObjectNames();
@@ -94,14 +92,18 @@ public class Stock {
 		storeitems.setReorderAmounts(reorderAmounts);
 		List<String> reorderNames = new ArrayList<>();
 		List<Item> ObjectNames = new ArrayList<>();
-		List<Item> normalItems = new ArrayList<>();
-		List<Item>rItems = new ArrayList<>();
+		Manifest openManifest = new Manifest();
 		ObjectNames = storeitems.getObjectNames(); 
+		for(int y = 0; y < objectNames.size(); y++) {
+			System.out.println("entering first for loop");
+			System.out.println("No overflow yet" + objectNames.get(y).getName());
+		}
 		for(int i = 0; i < objectNames.size(); i++) {
 			System.out.println("Entered for loop in stockOrder");
 			if(objectNames.get(i).getQuantity() <= objectNames.get(i).getReorderPoint()) {
 				System.out.println("Values were correct");
-				reorderAmounts.put(maniTemp.objectNames.get(i).getName(), maniTemp.objectNames.get(i).getReorderAmount());
+				reorderAmounts.put(openManifest.objectNames.get(i).getName(), openManifest.objectNames.get(i).getReorderAmount());
+				System.out.println("\n" + "ReorderNames = " + objectNames.get(i).getName());
 				reorderNames.add(objectNames.get(i).getName());
 			}
 		}
@@ -111,8 +113,10 @@ public class Stock {
 		for(int i = 0; i < reorderNames.size(); i++) {
 			System.out.println("Reorder First Name is: " + reorderNames.get(i));
 		}
-		maniTemp.stockOrder();
 		
+		openManifest.stockOrder();
+		List<Item> normalItems = new ArrayList<>();
+		List<Item> rItems = new ArrayList<>();
 		normalItems = storeitems.getNormalItems();
 		rItems = storeitems.getrItems();
 		double currentGreatestTemp = 0.0;
@@ -134,12 +138,12 @@ public class Stock {
 	public void manifestDelivered(File delManifest) {
 		System.out.println("Entered Manifest Delivered");
 		StoreItems storeitems = StoreItems.getInstance();
+		Manifest deliverManifest = new Manifest();
 		Store store = Store.getInstance();
-		maniTemp.openManifest(delManifest);
+		deliverManifest.openManifest(delManifest);
 		LinkedHashMap<String, Integer> manifestValues = new LinkedHashMap<String, Integer>();
 		List<Item> normalItems = new ArrayList<Item>();
 		List<Item> rItems = new ArrayList<Item>();
-		List<Item> updateObject = new ArrayList<Item>();
 		List<Item> objectNames = new ArrayList<Item>();
 		List<String> reorderNames = new ArrayList<String>();
 		objectNames = storeitems.getObjectNames();
@@ -226,6 +230,7 @@ public class Stock {
 	}
 
 	private boolean tempChecker(int counter) {
+		Manifest maniTemp = new Manifest();
 		if(maniTemp.objectNames.get(counter).getTemperatureCheck() == true){
 			return true;
 		} else {

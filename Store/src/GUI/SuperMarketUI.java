@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.DefaultTableModel;
 
+import Produce.Item;
 //Import Other Relevant Packages.
 import Produce.Stock;
 import SuperMarket.Store;
@@ -47,7 +48,6 @@ public class SuperMarketUI extends JFrame
 	private JMenuItem loadMenuManifests;
 	private JMenuItem saveMenuManifests;
 	private JMenuItem loadMenuSalesLogs;
-	private JMenuItem saveMenuSalesLogs;
 	private JMenuItem exitMenuItem;
 	private JMenuBar menubar;
 	private JMenu file;
@@ -60,6 +60,8 @@ public class SuperMarketUI extends JFrame
 	private int loadManifestReturnValue;
 	private int loadSalesLogsReturnValue;
 	private File selectedFile;
+	private File selectedPropertiesFile;
+	private File selectedManifestFile;
 	
 	private SuperMarketUI()
 	{
@@ -125,7 +127,6 @@ public class SuperMarketUI extends JFrame
       loadMenuManifests = new JMenuItem("Open Manifest");
       loadMenuSalesLogs = new JMenuItem("Open Sales Log");
       saveMenuManifests = new JMenuItem("Export Manifest"); 
-      saveMenuSalesLogs = new JMenuItem("Export Sales Log"); 
       exitMenuItem = new JMenuItem("Exit");
       
       //Load Properties Menu:
@@ -176,12 +177,6 @@ public class SuperMarketUI extends JFrame
   		}
       });
       
-      //Save Sales Logs Menu:
-      saveMenuSalesLogs.setToolTipText("Export a Sales Log File");
-      saveMenuSalesLogs.addActionListener((ActionEvent event) -> {
-      	SaveSaleLogs();
-      });
-      
       //Exit Menu:
       exitMenuItem.setMnemonic(KeyEvent.VK_E);
       exitMenuItem.setToolTipText("Exit application");
@@ -194,7 +189,6 @@ public class SuperMarketUI extends JFrame
       file.add(loadMenuManifests);
       file.add(saveMenuManifests);
       file.add(loadMenuSalesLogs);
-      file.add(saveMenuSalesLogs);
       file.add(exitMenuItem);
 
       menubar.add(file);
@@ -206,8 +200,8 @@ public class SuperMarketUI extends JFrame
 	{
 //		selectedFile = loadPropertiesFileChooser.getSelectedFile();
 		//testing purposes
-		File selectedFile = new File("src\\CSV's\\item_properties.csv");
-		stock.initialise(selectedFile);
+		File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
+		stock.initialise(selectedPropertiesFile);
 		
 		if(stock.getObjectAmount() > 0)
 		{
@@ -221,6 +215,7 @@ public class SuperMarketUI extends JFrame
 	  }
 		System.out.println("Setting Capital");
 		capitalValue.setText(store.getCapital());
+		
 		ReloadUI();
 	}
 	
@@ -230,36 +225,6 @@ public class SuperMarketUI extends JFrame
 	{
 		stock.stockOrder();
 		capitalValue.setText(store.getCapital());
-		ReloadUI();
-	}
-	
-	private void SaveSaleLogs()
-	{
-		if(count == 0) {
-			File createFile = new File("src\\CSV's\\sales_log_0.csv");
-			stock.salesLog(createFile);
-			capitalValue.setText(store.getCapital());
-		} else if(count == 1) {
-			File createFile = new File("src\\CSV's\\sales_log_1.csv");
-			stock.salesLog(createFile);
-			capitalValue.setText(store.getCapital());
-			count++;
-		} else if(count == 2) {
-			File createFile = new File("src\\CSV's\\sales_log_2.csv");
-			stock.salesLog(createFile);
-			capitalValue.setText(store.getCapital());
-			count++;
-		} else if(count == 3) {
-			File createFile = new File("src\\CSV's\\sales_log_3.csv");
-			stock.salesLog(createFile);
-			capitalValue.setText(store.getCapital());
-			count++;
-		} else if(count == 4) {
-			File createFile = new File("src\\CSV's\\sales_log_4.csv");
-			stock.salesLog(createFile);
-			capitalValue.setText(store.getCapital());
-			count++;
-		}
 		
 		ReloadUI();
 	}
@@ -268,9 +233,9 @@ public class SuperMarketUI extends JFrame
 	
 	private void LoadManifests()
 	{
-		selectedFile = loadManifestFileChooser.getSelectedFile();
+		selectedManifestFile = loadManifestFileChooser.getSelectedFile();
 		File createFile = new File("src\\CSV's\\manifest00.csv");
-		stock.manifestDelivered(selectedFile);
+		stock.manifestDelivered(selectedManifestFile);
 		
 		ReloadUI();
 	}
@@ -278,8 +243,20 @@ public class SuperMarketUI extends JFrame
 	private void LoadSaleLogs()
 	{
 		selectedFile = loadSalesLogsFileChooser.getSelectedFile();
-		//stock
-		//TODO: add Relevant Function.
+		stock.salesLog(selectedFile);
+		
+		if(stock.getObjectAmount() > 0)
+		{
+	      for(int i = 0; i < stock.getObjectAmount(); i++)
+	      {
+	    	  System.out.println(stock.getObjectAmount());
+	    	  String[] item = { "", "", "", "", "", "", "" };
+	    	  item = stock.showInventory(i);
+	    	  //tableModel.addRow(item);
+	    	  tableModel.setValueAt(item, i, i);
+	      }
+	  }
+		
 		ReloadUI();
 	}
 	

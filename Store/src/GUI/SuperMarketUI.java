@@ -254,6 +254,22 @@ public class SuperMarketUI extends JFrame
 		File createFile = new File("src\\CSV's\\manifest00.csv");
 		stock.manifestDelivered(selectedManifestFile);
 		
+		try
+		{
+			if(stock.getObjectAmount() > 0)
+			{
+				for(int i = 0; i < stock.getObjectAmount(); i++)
+			    {
+		    	  System.out.println(stock.getObjectAmount());
+		    	  String[] item = { "", "", "", "", "", "", "" };
+		    	  item = stock.showInventory(i);
+		    	  tableModel.removeRow(i);
+		    	  tableModel.addRow(item);
+			    }
+			}
+		}
+		catch (Exception e) { e.printStackTrace(); }
+		
 		ReloadUI();
 	}
 	

@@ -98,7 +98,7 @@ public class SuperMarketUI extends JFrame
 	    capitalLabel = new JLabel("Store Capital");
 	    capitalValue = new JTextField(store.getCapital());
 	    
-	    capitalValue.setBounds(100,100, 200,30);
+	    capitalValue.setBounds(150,150, 200,30);
 	    
 		inputPanel.add(capitalLabel);
 		inputPanel.add(capitalValue);

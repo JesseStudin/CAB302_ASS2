@@ -85,11 +85,11 @@ public class Stock {
 
 	
 	//create manifest for reorder!
+	//This function is used when the manage wants to restock the supermarket
 	public void stockOrder() {
+		//create instances of objects used later on
 		StoreItems storeitems = StoreItems.getInstance();
-		Store store = Store.getInstance();
-		//create instance of manifest
-		//remove all current order Information with new information
+		//Create the variables that will be used throughout this function
 		LinkedHashMap<String, Integer> reorderAmounts = new LinkedHashMap<>();
 		storeitems.setReorderAmounts(reorderAmounts);
 		List<String> reorderNames = new ArrayList<>();

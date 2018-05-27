@@ -1,18 +1,16 @@
 Ordinary Truck
 rice,300
 beans,525
+pasta,250
 biscuits,575
-bread,200
+nuts,250
+chocolate,375
 Refridgerated Truck
-mushrooms,325,10.0
 tomatoes,400,10.0
 lettuce,350,10.0
-grapes,225,9.0
-asparagus,275,8.0
 chicken,425,4.0
 beef,550,3.0
 fish,475,2.0
-cheese,450,3.0
+milk,425,3.0
 ice cream,250,-20.0
-frozen meat,575,-14.0
 frozen vegetable mix,325,-12.0

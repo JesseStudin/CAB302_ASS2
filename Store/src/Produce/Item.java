@@ -87,11 +87,11 @@ public class Item {
 	}
 
 	public void setQuantitySale(int quantity) {
-		this.quantity = this.quantity + quantity;
+		this.quantity = this.quantity - quantity;
 	}
 	
 	public void setQuantityManifest(int quantity) {
-		this.quantity = this.quantity - quantity;
+		this.quantity = this.quantity + quantity;
 	}
 	
 

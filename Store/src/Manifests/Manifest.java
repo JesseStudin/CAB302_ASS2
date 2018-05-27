@@ -48,7 +48,7 @@ public class Manifest {
 					double tempDoubleC = Double.parseDouble(tempValues[2]);
 					int tempReorderPoint = Integer.parseInt(tempValues[3]);
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
-					Item objectNameTemp = new Item(tempValues[0], tempIntA, tempDoubleB, tempDoubleC, tempReorderPoint, tempReorderAmount);
+					Item objectNameTemp = new Item(tempValues[0], 0, tempDoubleB, tempDoubleC, tempReorderPoint, tempReorderAmount);
 					objectNames.add(objectNameTemp);
 				} else if(tempValues.length - 1 == 5) {
 					int tempQuantity = Integer.parseInt(tempValues[4]);
@@ -57,7 +57,7 @@ public class Manifest {
 					int tempReorderPoint = Integer.parseInt(tempValues[3]);
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					double tempTemperature = Double.parseDouble(tempValues[5]);
-					Item objectNameTemp = new Item(tempValues[0], tempQuantity, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
+					Item objectNameTemp = new Item(tempValues[0], 0, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
 					objectNames.add(objectNameTemp);
 				}
 			}

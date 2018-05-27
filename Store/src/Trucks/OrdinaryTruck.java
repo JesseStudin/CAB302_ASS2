@@ -8,7 +8,7 @@ public class OrdinaryTruck extends Truck {
 
 
 	public double truckCost(double cargoTotal) {
-		return 750 + Math.pow(0.25, cargoTotal);
+		return 750 + (0.25 * (int)cargoTotal);
 	}
 
 	@Override

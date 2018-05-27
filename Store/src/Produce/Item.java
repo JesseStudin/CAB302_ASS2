@@ -9,7 +9,7 @@ public class Item {
 
 	public Item(String name, int quantity, double cost, double sellPrice, int reorderPoint, int reorderAmount) {
 		this.name = name;
-		this.quantity = reorderAmount;
+		this.quantity = quantity;
 		this.cost = cost;
 		this.sellPrice = sellPrice;
 		this.reorderPoint = reorderPoint;
@@ -19,7 +19,7 @@ public class Item {
 
 	public Item(String name,int quantity, double cost, double sellPrice, int reorderPoint, int reorderAmount, double temperaturecel) {
 		this.name = name;
-		this.quantity = reorderAmount;
+		this.quantity = quantity;
 		this.cost = cost;
 		this.sellPrice = sellPrice;
 		this.reorderPoint = reorderPoint;

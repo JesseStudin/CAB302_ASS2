@@ -1,3 +1,9 @@
+/**
+ * @author Jesse Studin
+ * @version 1.0
+ * 
+ */
+
 /*
  * Stock.Java
  * 
@@ -27,8 +33,16 @@ public class Stock {
 	//for(int i = 0; i < [functionbelow]
 	
 	//This Function is called from the frontend to fill the table with information.
+	/**
+	 * This function shows the latest inventory found by using the parameter 
+	 * argument int i. This is passed through from the GUI "SuperMarket" class
+	 * and returns a String[] Array
+	 * @param i int i to pick which object
+	 * @return String[] String[] Array returned
+	 */
 	public String[] showInventory(int i) {
 		//Define Variables to be used.
+		
 		Store store = Store.getInstance();																	//Get an instance of Store.
 		objectNames = store.getInventoryNames();															//Ensure the objectNames are consistent.
 		String[] holdValues = new String[objectNames.size()];												//Create a new String Array to hold the values used below.
@@ -52,7 +66,13 @@ public class Stock {
 	//current for loop counter in gui 
 	
 	//This Function is used to retrieve the required amount of objects.
+	/**
+	 * This returns the current inventory total (size()). This is used
+	 * In the GUI to sort through the ShowInventory(int counter) function
+	 * @return objectNameSize.size() returns the current inventory size
+	 */
 	public int getObjectAmount() {
+		
 		List<Item> objectNamesSize = new ArrayList<Item>();													//Create a new ArrayList for the Items.
 		Store store = Store.getInstance();																	//Get an instance of the Store Script.
 		objectNamesSize = store.getInventoryNames();														//Ensure Consistancy.
@@ -62,23 +82,25 @@ public class Stock {
 	//use this to initiliase
 	
 	//This Function is used to initialize a file that is parsed.
+	/**
+	 * This function is fed the inventProp and is used to 
+	 * initialise the supermarket with its items set to the
+	 * quantity values of 0.
+	 * @param inventProp used to create the objects
+	 */
 	public void initialise(File inventProp) {
+		
 		StoreItems storedItems = StoreItems.getInstance();													//Create an instance of StoreItems.
 		Manifest initialManifest = new Manifest();															//Create a new Manifest.
 		objectNames = initialManifest.setInitialInvent(inventProp);											//Set the initialInventory of the manifest.
-		storedItems.setObjectNames(objectNames);															//Set the stored items object names.
-		
-		//current capital after prop
-		double currentValue = 0;
-		//Adjust the capital.
-		for(int i = 0; i < getObjectAmount(); i++) {
-			currentValue = currentValue + ((double)objectNames.get(i).getCost() * objectNames.get(i).getQuantity());
-		}
-		Store store = Store.getInstance();																	//Get an Instance of Store.
-		store.setCapital(currentValue);																		//Set the Current Capital.
+		storedItems.setObjectNames(objectNames);															//Set the stored items object names.																	//Set the Current Capital.
 	}
 
 	//This function is used when the manage wants to restock the supermarket
+	/**
+	 * This creates a stockorder, the stockorder is where the current amounts of stock need to be
+	 * reorderd determined by if the quantity is less than currently set reorderPoints.
+	 */
 	public void stockOrder() {
 		
 		//create instances of objects used later on
@@ -118,7 +140,16 @@ public class Stock {
 	}
 	
 	//This Function is used then reloading / loading the manifest, and updates the store total.
+	/**
+	 * The Created Manifest is selected by user in the GUI
+	 * and is used as a parameter to use openManifest(file) in 
+	 * Manifest.Manifest. After this takes the stored Parameters
+	 * in the instanced class StoreItems.java and uses them to find
+	 * the costs to the company for the manifest delivery
+	 * @param delManifest Loading the Created Manifest
+	 */
 	public void manifestDelivered(File delManifest) {
+		
 //		System.out.println("Entered Manifest Delivered");
 		
 		//create instances of objects used later on
@@ -215,7 +246,15 @@ public class Stock {
 	}
 	
 	//This Function Handles the SalesLog workings.
+	/**
+	 * This is used to read the saleslog.csv's. The .csv is passed 
+	 * as an argumnent which is fed through to manifest then CSVParse 
+	 * respectively. After the values stored from other classes
+	 * are used to find the total profit the company made over the sales period.
+	 * @param salesLog The SalesLog.csv to read
+	 */
 	public void salesLog(File salesLog) {
+		
 		//Create Instances and New Manifests.
 		Manifests.Manifest work = new Manifests.Manifest();
 		StoreItems store = StoreItems.getInstance();

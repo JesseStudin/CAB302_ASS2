@@ -1,3 +1,8 @@
+/**
+ * @author Jesse Studin, Pierce Thompson
+ * @version 1.0
+ */
+
 /*
  * Item.Java
  * 
@@ -23,6 +28,11 @@ public class CSVWriteParse {
 
 	
 	//This function writes a new manifest to be imported later on by the user.
+	/**
+	 * Called From Stock to Manifest to CSVWriteParse to create the
+	 * manifest which will be loaded to find out how much the company
+	 * needs to restock
+	 */
 	public void writeManifest() {
 		try {
 			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));	//Generate a brand new manifest.
@@ -41,12 +51,10 @@ public class CSVWriteParse {
 				System.out.println("ReorderName = " + reorderNames.get(k));
 			}
 			*/
-			
+		
 			List<Item> reorderObjects = new ArrayList<Item>();											//Assign a value to objectNames.
 			List<Item> normalItems = new ArrayList<Item>();												//Assign a value to objectNames.
 			List<Item> rItems = new ArrayList<Item>();													//Assign a value to objectNames.
-			List<Item> normalItemsTwo = new ArrayList<Item>();
-			List<Item> normalItemsThree = new ArrayList<Item>();
 			List<Item> rItemsTwo = new ArrayList<Item>();
 			storeitems.setRItems(rItems);
 			storeitems.setNormalItems(normalItems);
@@ -65,16 +73,17 @@ public class CSVWriteParse {
 			}
 			System.out.println("ReorderObject Size = : " + reorderObjects.size());
 			for(int i = 0; i < reorderObjects.size(); i++) {
-				if (reorderObjects.get(i).getTemperatureCheck() == true) {
-					rItems.add(reorderObjects.get(i));
-					counter++;
-					//System.out.println(counter);
-				} else if (reorderObjects.get(i).getTemperatureCheck() == false) {
-					normalItems.add(reorderObjects.get(i));
-					counter++;
-					System.out.println(counter);
-					}
+			if (reorderObjects.get(i).getTemperatureCheck() == true) {
+				rItems.add(reorderObjects.get(i));
+				counter++;
+				//System.out.println(counter);
+			} else if (reorderObjects.get(i).getTemperatureCheck() == false) {
+				normalItems.add(reorderObjects.get(i));
+				counter++;
+				System.out.println(counter);
 				}
+			}
+			
 				newLineWriter.print("Ordinary Truck\n");
 				newLineWriter.flush();
 				for (Item normalItem : normalItems) {
@@ -105,6 +114,10 @@ public class CSVWriteParse {
 		}
 	}
 	
+	/**
+	 * Reads the inputted saleslog to find the current quantity losses and profits to the company
+	 * @param salesLog loaded .csv to find quantity losses and profits to capital
+	 */
 	public void readSalesLog(File salesLog) {
 		//System.out.println("Entered ReadSalesLog");
 		BufferedReader reader = null;
@@ -134,6 +147,13 @@ public class CSVWriteParse {
 	}
 
 
+	/**
+	 * Reads a manifest file, will sort each line 
+	 * following structure
+	 * ["Truck Name"]
+	 * ["Name"],["Quantity"]
+	 * @param delManifest The File Parameter, this is the chosen Manifest to Open
+	 */
 	public void readManifest(File delManifest) {
 		BufferedReader reader = null;
 		try {

@@ -1,12 +1,16 @@
+/**
+ * @author Jesse Studin, Pierce Thompson
+ */
 package Trucks;
 
 import java.lang.Math;
 public class OrdinaryTruck extends Truck {
 
+	
 	private int cargoCapacity;
 	//create instance of Stock
 
-
+	@Override
 	public double truckCost(double cargoTotal) {
 		return 750 + (0.25 * (int)cargoTotal);
 	}

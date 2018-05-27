@@ -23,22 +23,39 @@ public class Manifest {
 	public LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>();		//Create a new LinkedHashMap for the Sales Values.
 
 	//Write the Stock Order Manifest to a file via the CSVWriteParse Script.
+	/**
+	 * Used to write a manifest determined by StockOrder in Stock.Stock.java
+	 */
 	public void stockOrder(){
 		reader.writeManifest();
 	}
 	
 	//Read a Sales Log Via the CSVWriteParse Script.
+	/**
+	 * Passed into CSVWriteParse to read the saleslog and create necessary variables
+	 * @param salesLog The Saleslog_x.csv that will be read 
+	 */
 	public void salesLog(File salesLog) {
 		reader.readSalesLog(salesLog);
 	}
 	
 	//Read a Manifest Via the CSVWriteParse Script.
+	/**
+	 * Passed through to CSVWriteParse to read the chosen manifest
+	 * @param delManifest File passed through as argument into the CSVWriteParse to read Manifest
+	 */
 	public void openManifest(File delManifest) {
 		reader.readManifest(delManifest);
 		reader = null;
 	}
 
 	//This Function will parse the manifest and update the manifest hash accordingly
+	/**
+	 * Initialises all Item Object Names, stores them in StoreItem and proceeds to set quantity as 1 so 
+	 * manifest can be created and loaded
+	 * @param inventProp The initialise Inventory file "item_properties"
+	 * @return objectNames Returns the objectNames used for later
+	 */
 	public List<Item> setInitialInvent(File inventProp) {
 		//set the initial inventory!!
 		BufferedReader reader = null;

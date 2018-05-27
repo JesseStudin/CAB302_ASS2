@@ -211,13 +211,13 @@ public class SuperMarketUI extends JFrame
 	
 	private void LoadItemProperties()
 	{
-//		selectedFile = loadPropertiesFileChooser.getSelectedFile();
-		//testing purposes
-		File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
-		stock.initialise(selectedPropertiesFile);
-		
 		try
 		{
+			//selectedFile = loadPropertiesFileChooser.getSelectedFile();
+			//testing purposes
+			File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
+			stock.initialise(selectedPropertiesFile);
+		
 			if(stock.getObjectAmount() > 0)
 			{
 		      for(int i = 0; i < stock.getObjectAmount(); i++)
@@ -251,12 +251,12 @@ public class SuperMarketUI extends JFrame
 	
 	private void LoadManifests()
 	{
-		selectedManifestFile = loadManifestFileChooser.getSelectedFile();
-		File createFile = new File("src\\CSV's\\manifest00.csv");
-		stock.manifestDelivered(selectedManifestFile);
-		
 		try
 		{
+			selectedManifestFile = loadManifestFileChooser.getSelectedFile();
+			File createFile = new File("src\\CSV's\\manifest00.csv");
+			stock.manifestDelivered(selectedManifestFile);
+		
 			if(stock.getObjectAmount() > 0)
 			{
 				for(int i = 0; i < stock.getObjectAmount(); i++)
@@ -276,11 +276,11 @@ public class SuperMarketUI extends JFrame
 	
 	private void LoadSaleLogs()
 	{
-		selectedFile = loadSalesLogsFileChooser.getSelectedFile();
-		stock.salesLog(selectedFile);
-		
 		try
 		{
+			selectedFile = loadSalesLogsFileChooser.getSelectedFile();
+			stock.salesLog(selectedFile);
+		
 			if(stock.getObjectAmount() > 0)
 			{
 				for(int i = 0; i < stock.getObjectAmount(); i++)

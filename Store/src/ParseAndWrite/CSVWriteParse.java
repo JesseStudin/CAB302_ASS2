@@ -1,6 +1,7 @@
 package ParseAndWrite;
 
 import Produce.Item;
+import SuperMarket.Store;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +33,8 @@ public class CSVWriteParse {
 			List<Item> objectNames = new ArrayList<>();
 			LinkedHashMap<String, Integer> reorderAmount = new LinkedHashMap<>();
 			List<String> reorderNames = new ArrayList<>();
-			objectNames = storeitems.getObjectNames();
+			Store store = Store.getInstance();
+			objectNames = store.getInventoryNames();
 			reorderAmount = storeitems.getReorderAmounts();
 			reorderNames = storeitems.getReordernames();
 			System.out.println(reorderNames);
@@ -45,9 +47,12 @@ public class CSVWriteParse {
 			storeitems.setRItems(rItems);
 			storeitems.setNormalItems(normalItems);
 			int counter = 0;
-			for(int b = 0; b < reorderAmount.size(); b++) {
-				for(int j = 0; j < objectNames.size(); j++) {
-					if(objectNames.get(j).getName() == reorderNames.get(b)) {
+			for(int b = 0; b < objectNames.size(); b++) {
+				for(int j = 0; j < reorderAmount.size(); j++) {
+					System.out.println("Inside sorting values: " + objectNames.get(b).getName());
+					System.out.println("Inside Sorting Values (reorderNames) = " + reorderNames.get(j));
+					if(objectNames.get(b).getName() == reorderNames.get(j)) {
+						System.out.println("Success");
 						reorderObjects.add(objectNames.get(b));
 						counter++;
 					}

@@ -90,13 +90,18 @@ public class Stock {
 	public void stockOrder() {
 		//create instances of objects used later on
 		StoreItems storeitems = StoreItems.getInstance();
+		Store store = Store.getInstance();
 		//Create the variables that will be used throughout this function
 		LinkedHashMap<String, Integer> reorderAmounts = new LinkedHashMap<>();
+		LinkedHashMap<String, Integer> tempreorderAmounts = new LinkedHashMap<>();
 		storeitems.setReorderAmounts(reorderAmounts);
+		tempreorderAmounts = storeitems.getReorderAmounts();
+		System.out.println("ReorderAmountstemp =: " + tempreorderAmounts);
+		System.out.println("ReorderAmount = : " + reorderAmounts.size());
 		List<String> reorderNames = new ArrayList<>();
 		List<Item> ObjectNames = new ArrayList<>();
 		Manifest openManifest = new Manifest();
-		ObjectNames = storeitems.getObjectNames(); 
+		ObjectNames = store.getInventoryNames(); 
 		for(int y = 0; y < ObjectNames.size(); y++) {
 			System.out.println("entering first for loop");
 			System.out.println("No overflow yet" + ObjectNames.get(y).getName());
@@ -149,7 +154,7 @@ public class Stock {
 		List<Item> rItems = new ArrayList<Item>();
 		List<Item> objectNames = new ArrayList<Item>();
 		List<String> reorderNames = new ArrayList<String>();
-		objectNames = storeitems.getObjectNames();
+		objectNames = store.getInventoryNames();
 		manifestValues = storeitems.getManifestValues();
 		reorderNames = storeitems.getReordernames();
 		rItems = storeitems.getrItems();

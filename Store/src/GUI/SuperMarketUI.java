@@ -1,3 +1,10 @@
+/*
+ * SuperMarketUI.Java
+ * 
+ * Written by: Jesse Studin and Pierce Thompson.
+ * 
+ * This file handles the entire frontend of the program including, rendering the window along with a menu, table, and capital.
+ */
 package GUI;
 
 //Import Java AWT and IO Packages.
@@ -81,8 +88,10 @@ public class SuperMarketUI extends JFrame
 	 * To Remove from a Table Model: model.removeRow(table.getSelectedRow());
 	 */
 	
+	//This Function handles the rendering of the UI minus the MenuBar.
 	public void RenderUI()
 	{
+		//Create a new table and add some column headers.
 		tableModel = new DefaultTableModel();
 		tableModel.addColumn("Name");
 		tableModel.addColumn("Quantity");
@@ -92,27 +101,34 @@ public class SuperMarketUI extends JFrame
 		tableModel.addColumn("Re-Order Amount");
 		tableModel.addColumn("Temperature");
 	     
+		//Define the table as a JTable.
 	    table = new JTable(tableModel);
 
+	    //Create a JPanel.
 	    inputPanel = new JPanel();
+	    
+	    //Set the Capital Label and Value.
 	    capitalLabel = new JLabel("Store Capital");
 	    capitalValue = new JTextField(store.getCapital());
-	    
 	    capitalValue.setBounds(150,150, 200,30);
 	    
+	    //Add the Capital items to the Panel.
 		inputPanel.add(capitalLabel);
 		inputPanel.add(capitalValue);
 	    
+		//Create a UIContainer.
 		uiContainer = getContentPane();
 		uiContainer.add(new JScrollPane(table), BorderLayout.CENTER);
 		uiContainer.add(inputPanel, BorderLayout.NORTH);
 
+		//Set a couple of options for the Window.
 	    setDefaultCloseOperation(EXIT_ON_CLOSE);
-	    setSize(500, 300);
-	    setVisible(true);
-	    setTitle("SuperMarket");
+	    setSize(500, 300);									//Set the Size.
+	    setVisible(true);									//Set the Visibility.
+	    setTitle("SuperMarket");							//Set the Title.
 	}
 	
+	//This Function Handles the menubar, including the menu use functions.
 	private void createMenuBar()
 	{
 		//Create a New MenuBar
@@ -120,20 +136,23 @@ public class SuperMarketUI extends JFrame
 		
 		//Initialize the "File" Menu Item.
 		file = new JMenu("File");
-      file.setMnemonic(KeyEvent.VK_F); //Give it a shortcut key
+		file.setMnemonic(KeyEvent.VK_F); //Give it a shortcut key
 
-      // Menu Items:
-      loadMenuItemProperties = new JMenuItem("Load Item Properties"); 
-      loadMenuManifests = new JMenuItem("Open Manifest");
-      loadMenuSalesLogs = new JMenuItem("Open Sales Log");
-      saveMenuManifests = new JMenuItem("Export Manifest"); 
-      exitMenuItem = new JMenuItem("Exit");
+		// Menu Items:
+		loadMenuItemProperties = new JMenuItem("Load Item Properties"); 
+		loadMenuManifests = new JMenuItem("Open Manifest");
+		loadMenuSalesLogs = new JMenuItem("Open Sales Log");
+		saveMenuManifests = new JMenuItem("Export Manifest"); 
+		exitMenuItem = new JMenuItem("Exit");
       
-      //Load Properties Menu:
-      loadMenuItemProperties.setToolTipText("Load in an Item Properties File");
-      loadMenuItemProperties.addActionListener((ActionEvent event) -> {
+		//Load Properties Menu:
+		loadMenuItemProperties.setToolTipText("Load in an Item Properties File");
+		
+		//Add an ActionListener to this event.
+		loadMenuItemProperties.addActionListener((ActionEvent event) -> {
       	
-      	loadPropertiesFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+		//Create A Filechooser to select a file.
+		loadPropertiesFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
   		loadPropertiesReturnValue = loadPropertiesFileChooser.showOpenDialog(null);
 
@@ -141,7 +160,7 @@ public class SuperMarketUI extends JFrame
   		{
 	  		if(loadPropertiesReturnValue == JFileChooser.APPROVE_OPTION)
 	  		{
-	  			LoadItemProperties();
+	  			LoadItemProperties();								//Call the LoadItemProperties Function.
 	  		}
   		}
   		catch (Exception e) { e.printStackTrace(); }
@@ -149,8 +168,11 @@ public class SuperMarketUI extends JFrame
       
       //Load Manifests Menu:
       loadMenuManifests.setToolTipText("Import a Manifest File");
+      
+    //Add an ActionListener to this event.
       loadMenuManifests.addActionListener((ActionEvent event) -> {
       	
+    	//Create A Filechooser to select a file.
       	loadManifestFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
   		loadManifestReturnValue = loadManifestFileChooser.showOpenDialog(null);
@@ -159,7 +181,7 @@ public class SuperMarketUI extends JFrame
   		{
 	  		if(loadManifestReturnValue == JFileChooser.APPROVE_OPTION)
 	  		{
-	  			LoadManifests();
+	  			LoadManifests();									//Call the LoadManifests Function.
 	  		}
   		}
   		catch (Exception e) { e.printStackTrace(); }
@@ -167,14 +189,19 @@ public class SuperMarketUI extends JFrame
       
       //Save Manifests Menu:
       saveMenuManifests.setToolTipText("Export a Manifest File");
+      
+    //Add an ActionListener to this event.
       saveMenuManifests.addActionListener((ActionEvent event) -> {
-      	SaveManifests();
+      	SaveManifests();											//Call the SaveManifests Function.
       });
       
       //Load Sales Logs Menu:
       loadMenuSalesLogs.setToolTipText("Import a Sales Log File");
+      
+    //Add an ActionListener to this event.
       loadMenuSalesLogs.addActionListener((ActionEvent event) -> {
       	
+    	//Create A Filechooser to select a file.
       	loadSalesLogsFileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 
   		loadSalesLogsReturnValue = loadSalesLogsFileChooser.showOpenDialog(null);
@@ -183,7 +210,7 @@ public class SuperMarketUI extends JFrame
   		{
 	  		if(loadSalesLogsReturnValue == JFileChooser.APPROVE_OPTION)
 	  		{
-	  			LoadSaleLogs();
+	  			LoadSaleLogs();										//Call the LoadSaleLogs Function.
 	  		}
   		}
   		catch (Exception e) { e.printStackTrace(); }
@@ -193,120 +220,135 @@ public class SuperMarketUI extends JFrame
       exitMenuItem.setMnemonic(KeyEvent.VK_E);
       exitMenuItem.setToolTipText("Exit application");
       
+    //Add an ActionListener to this event.
       exitMenuItem.addActionListener((ActionEvent event) -> {
           System.exit(0);
       });
 
+      //Add the Options to the Menu.
       file.add(loadMenuItemProperties);
       file.add(loadMenuSalesLogs);
       file.add(loadMenuManifests);
       file.add(saveMenuManifests);
-      
       file.add(exitMenuItem);
 
+      //Create the MenuBar.
       menubar.add(file);
-
+      
+      //Set the MenuBar.
       setJMenuBar(menubar);
   }
 	
+	//This Function is used to load the ItemProperties file that was selected from the filechooser above.
 	private void LoadItemProperties()
 	{
 		try
 		{
-			selectedPropertiesFile = loadPropertiesFileChooser.getSelectedFile();
-			//testing purposes
-			//File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
-			stock.initialise(selectedPropertiesFile);
+			selectedPropertiesFile = loadPropertiesFileChooser.getSelectedFile();	//Use the Selected File.
+			
+			stock.initialise(selectedPropertiesFile);								//initialize the selected file.
 		
+			//Check if the stock amount is valid.
 			if(stock.getObjectAmount() > 0)
 			{
-		      for(int i = 0; i < stock.getObjectAmount(); i++)
-		      {
-		    	  System.out.println(stock.getObjectAmount());
-		    	  String[] item = { "", "", "", "", "", "", "" };
-		    	  item = stock.showInventory(i);
-		    	  tableModel.addRow(item);
-		      }
+				for(int i = 0; i < stock.getObjectAmount(); i++)					//Cycle through the available items.
+				{
+					String[] item = { "", "", "", "", "", "", "" };					//Create a new String Array for filling with information
+					item = stock.showInventory(i);									//Fill the String Array
+					tableModel.addRow(item);										//Add this information to the table.
+				}
 			}
 		}
 		catch (Exception e) { e.printStackTrace(); }
 		
-		System.out.println("Setting Capital");
-		capitalValue.setText(store.getCapital());
+		capitalValue.setText(store.getCapital());									//Set the Store Capital.
 		
-		ReloadUI();
+		ReloadUI();																	//Refresh the UI.
 	}
 	
 	//Save Functions:
 	
+	//This Function Saves the Manifest by calling stock.stockOrder();
 	private void SaveManifests()
 	{
-		stock.stockOrder();
-		capitalValue.setText(store.getCapital());
+		stock.stockOrder();															//Call for a stock order.
+		capitalValue.setText(store.getCapital());									//Set the Capital.
 		
-		ReloadUI();
+		ReloadUI();																	//Reload the UI.
 	}
 	
 	//Load Functions:
 	
+	//This Function Loads the manifest and refreshes the Table.
 	private void LoadManifests()
 	{
 		try
 		{
-			selectedManifestFile = loadManifestFileChooser.getSelectedFile();
+			selectedManifestFile = loadManifestFileChooser.getSelectedFile();		//Use the Selected File.
 			stock.manifestDelivered(selectedManifestFile);
 			
 			//Referenced From StackOverflow: https://stackoverflow.com/questions/11625755/how-to-remove-all-rows-in-jtable
-			if (tableModel.getRowCount() > 0) {
-                for (int i = tableModel.getRowCount() - 1; i > -1; i--) {
+			if (tableModel.getRowCount() > 0)
+			{
+                for (int i = tableModel.getRowCount() - 1; i > -1; i--)
+                {
                     tableModel.removeRow(i);
                 }
             }
+			
+			//Check if the stock amount is valid.
 			if(stock.getObjectAmount() > 0)
 			{
-				for(int i = 0; i < stock.getObjectAmount(); i++)
+				for(int i = 0; i < stock.getObjectAmount(); i++)					//Cycle through the available items.
 			    {
-		    	  System.out.println(stock.getObjectAmount());
-		    	  String[] item = { "", "", "", "", "", "", "" };
-		    	  item = stock.showInventory(i);
-		    	  tableModel.addRow(item);
+		    	  String[] item = { "", "", "", "", "", "", "" };					//Create a new String Array for filling with information
+		    	  item = stock.showInventory(i);									//Fill the String Array
+		    	  tableModel.addRow(item);											//Add this information to the table.									
 			    }
 			}
-			capitalValue.setText(store.getCapital());
+			capitalValue.setText(store.getCapital());								//Set the Store Capital
 		}
 		catch (Exception e) { e.printStackTrace(); }
 		
-		ReloadUI();
+		ReloadUI();																	//Reload the UI.
 	}
 	
+	//This Function is used to load the sale logs.
 	private void LoadSaleLogs()
 	{
 		try
 		{
-			selectedFile = loadSalesLogsFileChooser.getSelectedFile();
-			stock.salesLog(selectedFile);
-			if (tableModel.getRowCount() > 0) {
-                for (int i = tableModel.getRowCount() - 1; i > -1; i--) {
+			selectedFile = loadSalesLogsFileChooser.getSelectedFile();				//Use the Selected File.
+			stock.salesLog(selectedFile);											//Call the salesLog Function parsing in the Selected File.
+			
+			//Referenced From StackOverflow: https://stackoverflow.com/questions/11625755/how-to-remove-all-rows-in-jtable
+			if (tableModel.getRowCount() > 0)
+			{
+                for (int i = tableModel.getRowCount() - 1; i > -1; i--)
+                {
                     tableModel.removeRow(i);
                 }
             }
+			
+			//Check if the stock amount is valid.
 			if(stock.getObjectAmount() > 0)
 			{
-				for(int i = 0; i < stock.getObjectAmount(); i++)
+				for(int i = 0; i < stock.getObjectAmount(); i++)					//Cycle through the available items.
 			    {
 		    	  System.out.println(stock.getObjectAmount());
-		    	  String[] item = { "", "", "", "", "", "", "" };
-		    	  item = stock.showInventory(i);
-		    	  tableModel.addRow(item);
+		    	  String[] item = { "", "", "", "", "", "", "" };					//Create a new String Array for filling with information
+		    	  item = stock.showInventory(i);									//Fill the String Array
+		    	  tableModel.addRow(item);											//Add this information to the table.	
 			    }
 			}
-			capitalValue.setText(store.getCapital());;
+			capitalValue.setText(store.getCapital());;								//Set the Store Capital
 		}
 		catch (Exception e) { e.printStackTrace(); }
 		
-		ReloadUI();
+		ReloadUI();																	//Reload the UI.
 	}
 	
+	//This Function is used to reload / repaint the UI.
 	private void ReloadUI()
 	{
 		uiContainer.repaint();

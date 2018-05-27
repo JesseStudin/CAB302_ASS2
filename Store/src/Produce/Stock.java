@@ -1,5 +1,5 @@
 /*
- * Item.Java
+ * Stock.Java
  * 
  * Written by: Jesse Studin and Pierce Thompson.
  * 

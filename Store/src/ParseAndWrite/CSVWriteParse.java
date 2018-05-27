@@ -9,21 +9,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import Manifests.Manifest;
+
 import Manifests.StoreItems;
 
 public class CSVWriteParse {
 
-	private boolean checkTemp(int i) {
-		List<Item> objectNames = new ArrayList<Item>();
-		StoreItems store = StoreItems.getInstance();
-		objectNames = store.getObjectNames();
-		if(objectNames.get(i).getTemperatureCel() < -0.1 || objectNames.get(i).getTemperatureCel() > 0.0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
 	public void writeManifest() {
 		try {

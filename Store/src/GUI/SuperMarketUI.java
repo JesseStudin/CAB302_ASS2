@@ -273,6 +273,7 @@ public class SuperMarketUI extends JFrame
 		    	  tableModel.addRow(item);
 			    }
 			}
+			capitalValue.setText(store.getCapital());
 		}
 		catch (Exception e) { e.printStackTrace(); }
 		
@@ -300,6 +301,7 @@ public class SuperMarketUI extends JFrame
 		    	  tableModel.addRow(item);
 			    }
 			}
+			capitalValue.setText(store.getCapital());;
 		}
 		catch (Exception e) { e.printStackTrace(); }
 		

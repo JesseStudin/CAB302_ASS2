@@ -30,7 +30,7 @@ public class Store
 	//This Function is used to retrieve the store's capital.
 	public String getCapital()
 	{
-		String tempHold = Double.toString(this.capital);
+		String tempHold = String.format("%.2f", this.capital);
 		return tempHold;
 	}
 	

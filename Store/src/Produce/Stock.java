@@ -11,27 +11,13 @@ import java.util.*;
 
 public class Stock {
 
-	//reset this list every now and again
-	private double cargoTotalOrd;
+
 	private List<Item> objectNames = new ArrayList<Item>();
 
-//	public void storeInventory() {
-//		this.objectNames = storedItems.getObjectNames();
-//		for(int i = 0; i < objectNames.size(); i++) {
-//			objectNames.get(i).getName();
-//			objectNames.get(i).getQuantity();
-//			if(objectNames.get(i).getTemperatureCheck() == true) {
-//				objectNames.get(i).getTemperatureCel();
-//			}
-//		}
-//	}
-	
-	
 	//this should return the show inventory
 	//you'll probably need to run a for loop and 
 	//and the function below returns the object amount to use a '
 	//for(int i = 0; i < [functionbelow]
-	
 	public String[] showInventory(int i) {
 		Store store = Store.getInstance();
 		objectNames = store.getInventoryNames();
@@ -123,20 +109,7 @@ public class Stock {
 		}
 		
 		openManifest.stockOrder();
-		List<Item> normalItems = new ArrayList<>();
-		List<Item> rItems = new ArrayList<>();
-		normalItems = storeitems.getNormalItems();
-		rItems = storeitems.getrItems();
-		double currentGreatestTemp = 0.0;
-		for(int h = 0; h < rItems.size(); h++) {
-			if(rItems.get(h).getTemperatureCel() > currentGreatestTemp) {
-				currentGreatestTemp = rItems.get(h).getTemperatureCel();
-			}
-		}
-		int oCargo = 0;
-		for(int y = 0; y < normalItems.size(); y++) {
-			oCargo = oCargo + normalItems.get(y).getQuantity();
-		}
+		
 		
 	}
 
@@ -187,6 +160,7 @@ public class Stock {
 		double rCost = rTruck.truckCost(highestTemp);
 		double oCost = ordTruck.truckCost(cargoSize);
 		double capitalLoss = rCost + oCost;
+		System.out.println("Capital Loss = " + capitalLoss);
 		store.setCapital(capitalLoss);
 		//update stock now for both refridgerated and ordinary
 		//rItems first
@@ -195,7 +169,6 @@ public class Stock {
 			rItems.get(i).setQuantityManifest(manifestValues.get(manifestKey));
 		}
 		for(int z = 0; z < normalItems.size(); z++) {
-			System.out.println("Quantity before: " + normalItems.get(z).getQuantity());
 			String manifestKey = normalItems.get(z).getName();
 			normalItems.get(z).setQuantityManifest(manifestValues.get(manifestKey));
 			System.out.println("Quantity After: " + normalItems.get(z).getQuantity());
@@ -233,17 +206,5 @@ public class Stock {
 		
 	}
 
-	public double getCargoOrd() {
-		return this.cargoTotalOrd;
-	}
-
-	private boolean tempChecker(int counter) {
-		Manifest maniTemp = new Manifest();
-		if(maniTemp.objectNames.get(counter).getTemperatureCheck() == true){
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 }

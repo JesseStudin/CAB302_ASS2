@@ -15,9 +15,6 @@ public class Manifest {
 	public LinkedHashMap<String, Integer> salesValues = new LinkedHashMap<>();
 
 
-	public List<Item> getItem() {
-		return objectNames;
-	}
 
 	public void stockOrder(){
 		reader.writeManifest();
@@ -28,31 +25,19 @@ public class Manifest {
 		reader.readSalesLog(salesLog);
 	}
 	
-	public List<Item> getObjectList() {
-		return this.objectNames;
-	}
-
 	public void openManifest(File delManifest) {
 		reader.readManifest(delManifest);
 		reader = null;
 		
 	}
 
-	public void updateStock(){
-
-	}
-
-
 	//this will parse the manifest and update the manifest hash accordingly
-
-
 	public List<Item> setInitialInvent(File inventProp) {
 		//set the initial inventory!!
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(inventProp));
 			String readTheLine = "";
-			int counter = 0;
 			while((readTheLine = reader.readLine()) != null) {
 				String[] tempValues = readTheLine.split("[,]+");
 				String ObjectNameTemp = tempValues[0];
@@ -64,7 +49,6 @@ public class Manifest {
 					int tempReorderAmount = Integer.parseInt(tempValues[4]);
 					Item objectNameTemp = new Item(tempValues[0], tempIntA, tempDoubleB, tempDoubleC, tempReorderPoint, tempReorderAmount);
 					objectNames.add(objectNameTemp);
-					counter++;
 				} else if(tempValues.length - 1 == 5) {
 					int tempQuantity = Integer.parseInt(tempValues[4]);
 					double tempDoubleA = Double.parseDouble(tempValues[1]);
@@ -74,7 +58,6 @@ public class Manifest {
 					double tempTemperature = Double.parseDouble(tempValues[5]);
 					Item objectNameTemp = new Item(tempValues[0], tempQuantity, tempDoubleA, tempDoubleB, tempReorderPoint, tempReorderAmount, tempTemperature);
 					objectNames.add(objectNameTemp);
-					counter++;
 				}
 			}
 			reader.close();
@@ -87,15 +70,6 @@ public class Manifest {
 		System.out.println("Shouldn't be here");
 		return objectNames;
 		
-	}
-
-	//sales manifest
-	public void salesManifest() {
-
-	}
-
-	public Item getItem(int counter) {
-		return objectNames.get(counter);
 	}
 
 

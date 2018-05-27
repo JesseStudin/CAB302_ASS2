@@ -2,7 +2,12 @@ package Produce;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
+
+import Manifests.StoreItems;
 
 class StockTest {
 
@@ -13,7 +18,10 @@ class StockTest {
 
 	@Test
 	void testShowInventory() {
-		fail("Not yet implemented");
+		Stock stockTest = new Stock();
+		StoreItems storeditems = StoreItems.getInstance();
+		List<Item> objectNames = new ArrayList<>();
+		System.out.println(stockTest.showInventory(0));
 	}
 
 	@Test

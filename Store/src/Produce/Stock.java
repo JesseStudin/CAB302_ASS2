@@ -14,24 +14,21 @@ public class Stock {
 	private List<Item> item = new ArrayList<Item>();
 	//reset this list every now and again
 	private LinkedHashMap<String, Integer> updateStock = new LinkedHashMap<>();
-	
 	private Manifest maniTemp = new Manifest();
 	private StoreItems storedItems = StoreItems.getInstance();
 	private double cargoTotalOrd;
-	private int ordCargo;
-	private int refridgeCargo;
 	private List<Item> objectNames = new ArrayList<Item>();
 
-	public void storeInventory() {
-		this.objectNames = storedItems.getObjectNames();
-		for(int i = 0; i < objectNames.size(); i++) {
-			objectNames.get(i).getName();
-			objectNames.get(i).getQuantity();
-			if(objectNames.get(i).getTemperatureCheck() == true) {
-				objectNames.get(i).getTemperatureCel();
-			}
-		}
-	}
+//	public void storeInventory() {
+//		this.objectNames = storedItems.getObjectNames();
+//		for(int i = 0; i < objectNames.size(); i++) {
+//			objectNames.get(i).getName();
+//			objectNames.get(i).getQuantity();
+//			if(objectNames.get(i).getTemperatureCheck() == true) {
+//				objectNames.get(i).getTemperatureCel();
+//			}
+//		}
+//	}
 	
 	
 	//this should return the show inventory
@@ -40,6 +37,8 @@ public class Stock {
 	//for(int i = 0; i < [functionbelow]
 	
 	public String[] showInventory(int i) {
+		StoreItems storeditems = StoreItems.getInstance();
+		objectNames = storeditems.getObjectNames();
 		String[] holdValues = new String[objectNames.size()];
 		holdValues[0] = objectNames.get(i).getName();
 		holdValues[1] = Integer.toString(objectNames.get(i).getQuantity());

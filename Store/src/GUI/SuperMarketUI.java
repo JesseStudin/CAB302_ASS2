@@ -252,8 +252,9 @@ public class SuperMarketUI extends JFrame
 	    	  System.out.println(stock.getObjectAmount());
 	    	  String[] item = { "", "", "", "", "", "", "" };
 	    	  item = stock.showInventory(i);
-	    	  //tableModel.addRow(item);
-	    	  tableModel.setValueAt(item, i, i);
+	    	  //tableModel.setValueAt(item, row, column);
+	    	  tableModel.removeRow(i);
+	    	  tableModel.addRow(item);
 	      }
 	  }
 		

@@ -213,9 +213,9 @@ public class SuperMarketUI extends JFrame
 	{
 		try
 		{
-			//selectedFile = loadPropertiesFileChooser.getSelectedFile();
+			selectedPropertiesFile = loadPropertiesFileChooser.getSelectedFile();
 			//testing purposes
-			File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
+			//File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
 			stock.initialise(selectedPropertiesFile);
 		
 			if(stock.getObjectAmount() > 0)
@@ -255,7 +255,6 @@ public class SuperMarketUI extends JFrame
 		{
 			selectedManifestFile = loadManifestFileChooser.getSelectedFile();
 			stock.manifestDelivered(selectedManifestFile);
-			
 			
 			//Referenced From StackOverflow: https://stackoverflow.com/questions/11625755/how-to-remove-all-rows-in-jtable
 			if (tableModel.getRowCount() > 0) {

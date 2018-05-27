@@ -50,13 +50,6 @@ public class Stock {
 		Manifest initialManifest = new Manifest();
 		objectNames = initialManifest.setInitialInvent(inventProp);
 		storedItems.setObjectNames(objectNames);
-		List<Item> checkItWorked = new ArrayList<Item>();
-		checkItWorked = storedItems.getObjectNames();
-		System.out.println("Initialise Entered");
-		for(int i = 0; i < checkItWorked.size(); i++) {
-			System.out.println("Entered for loop");
-			System.out.println(checkItWorked.get(i));
-		}
 		
 		//current capital after prop
 		double currentValue = 0;
@@ -82,31 +75,29 @@ public class Stock {
 		LinkedHashMap<String, Integer> tempreorderAmounts = new LinkedHashMap<>();
 		storeitems.setReorderAmounts(reorderAmounts);
 		tempreorderAmounts = storeitems.getReorderAmounts();
-		System.out.println("ReorderAmountstemp =: " + tempreorderAmounts);
-		System.out.println("ReorderAmount = : " + reorderAmounts.size());
 		List<String> reorderNames = new ArrayList<>();
 		List<Item> ObjectNames = new ArrayList<>();
 		Manifest openManifest = new Manifest();
 		ObjectNames = store.getInventoryNames(); 
-		for(int y = 0; y < ObjectNames.size(); y++) {
-			System.out.println("entering first for loop");
-			System.out.println("No overflow yet" + ObjectNames.get(y).getName());
-		}
+//		for(int y = 0; y < ObjectNames.size(); y++) {
+//			System.out.println("entering first for loop");
+//			System.out.println("No overflow yet" + ObjectNames.get(y).getName());
+//		}
 		for(int i = 0; i < ObjectNames.size(); i++) {
-			System.out.println("Entered for loop in stockOrder");
+//			System.out.println("Entered for loop in stockOrder");
 			if(ObjectNames.get(i).getQuantity() <= ObjectNames.get(i).getReorderPoint()) {
-				System.out.println("Values were correct");
+//				System.out.println("Values were correct");
 				reorderAmounts.put(ObjectNames.get(i).getName(), ObjectNames.get(i).getReorderAmount());
-				System.out.println("\n" + "ReorderNames = " + ObjectNames.get(i).getName());
+//				System.out.println("\n" + "ReorderNames = " + ObjectNames.get(i).getName());
 				reorderNames.add(ObjectNames.get(i).getName());
 			}
 		}
-		System.out.println("Stock order reorderNames .size() " + reorderNames.size());
+//		System.out.println("Stock order reorderNames .size() " + reorderNames.size());
 		storeitems.setReorderAmounts(reorderAmounts);
 		storeitems.setReorderNames(reorderNames);
-		for(int i = 0; i < reorderNames.size(); i++) {
-			System.out.println("Reorder First Name is: " + reorderNames.get(i));
-		}
+//		for(int i = 0; i < reorderNames.size(); i++) {
+//			System.out.println("Reorder First Name is: " + reorderNames.get(i));
+//		}
 		
 		openManifest.stockOrder();
 		
@@ -117,7 +108,7 @@ public class Stock {
 	//this updates the store total
 	//use this when reloading the manifest (delivered)
 	public void manifestDelivered(File delManifest) {
-		System.out.println("Entered Manifest Delivered");
+//		System.out.println("Entered Manifest Delivered");
 		StoreItems storeitems = StoreItems.getInstance();
 		Manifest deliverManifest = new Manifest();
 		Store store = Store.getInstance();
@@ -134,7 +125,7 @@ public class Stock {
 		normalItems = storeitems.getNormalItems();
 		
 		for(int i = 0; i < manifestValues.size(); i++) {
-			System.out.println("Entered temp checker?!?!  and rItems.size" + rItems.size());
+//			System.out.println("Entered temp checker?!?!  and rItems.size" + rItems.size());
 			for(int j = 0; j < objectNames.size(); j++) {
 				if(objectNames.get(j).getName() == reorderNames.get(i)) {
 					if(objectNames.get(i).getTemperatureCheck() == true) {
@@ -147,7 +138,7 @@ public class Stock {
 		}//end for loop
 		double highestTemp = 0.0;
 		for(int a = 0; a < rItems.size(); a++) {
-			if(rItems.get(a).getTemperatureCel() > highestTemp) {
+			if(rItems.get(a).getTemperatureCel() < highestTemp) {
 				highestTemp = rItems.get(a).getTemperatureCel();
 			}
 		}//end for loop
@@ -157,11 +148,26 @@ public class Stock {
 		}//end for loop
 		OrdinaryTruck ordTruck = new OrdinaryTruck();
 		RefridgeratedTruck rTruck = new RefridgeratedTruck();
+		System.out.println("Cargo Size = " + cargoSize);
+		System.out.println("HighestTemperature" + highestTemp);
 		double rCost = rTruck.truckCost(highestTemp);
 		double oCost = ordTruck.truckCost(cargoSize);
 		double capitalLoss = rCost + oCost;
-		System.out.println("Capital Loss = " + capitalLoss);
-		store.setCapital(capitalLoss);
+		
+		//get the manufacturing costs!
+		//First Normal Items
+		double manuCostSum = 0;
+		for(int f = 0; f < normalItems.size(); f++) {
+			manuCostSum = manuCostSum + (normalItems.get(f).getCost() * manifestValues.get(normalItems.get(f).getName()));
+		}
+		//same for rItems
+		for(int d = 0; d < rItems.size(); d++) {
+			manuCostSum = manuCostSum + (rItems.get(d).getCost() * manifestValues.get(rItems.get(d).getName()));
+		}
+		
+		double totalLoss = capitalLoss + manuCostSum;
+		System.out.println("Capital Loss = " + totalLoss);
+		store.setCapital(totalLoss);
 		//update stock now for both refridgerated and ordinary
 		//rItems first
 		for(int i = 0; i < rItems.size(); i++) {
@@ -195,8 +201,8 @@ public class Stock {
 			String tempHold = objectNames.get(i).getName();
 			if(salesValues.containsKey(tempHold) == true) {
 				objectNames.get(i).setQuantitySale(salesValues.get(salesObjectNames.get(i)));
-				capitalSum = capitalSum + (objectNames.get(i).getCost() * objectNames.get(i).getQuantity());
-				System.out.println("Actual Object Item ObjectName = " + objectNames.get(i).getName() + ", Quantity = " + objectNames.get(i).getQuantity());
+				capitalSum = capitalSum + (objectNames.get(i).getsellPrice() * salesValues.get(objectNames.get(i).getName()));
+				System.out.println("Actual Object Item ObjectName = " + objectNames.get(i).getName() + ", Quantity = " + salesValues.get(objectNames.get(i).getName() + " Cost = " + objectNames.get(i).getsellPrice()));
 			}
 		}
 		Store supermarket = Store.getInstance();

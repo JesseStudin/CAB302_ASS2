@@ -20,10 +20,7 @@ import java.util.Map;
 import Manifests.StoreItems;
 
 public class CSVWriteParse {
-<<<<<<< HEAD
 
-=======
->>>>>>> 7b5e29d992fe408c42ea04fa282e07e0b0a6c4a6
 	
 	//This function writes a new manifest to be imported later on by the user.
 	public void writeManifest() {
@@ -144,12 +141,9 @@ public class CSVWriteParse {
 			while((readTheLine = reader.readLine()) != null) {
 				String[] tempValues = readTheLine.split("[,]+");
 				String tempCheckHold = tempValues[0];
-				System.out.println(tempCheckHold);
 				if(readTheLine.contains("Ordinary Truck") || readTheLine.contains("Refridgerated Truck")) {
-					System.out.println("This is true!");
 					continue;
 				}
-				System.out.println(tempValues[0]);
 				String objectNameTemp = tempValues[0];
 				int tempInt = Integer.parseInt(tempValues[1]);
 				manifestValues.put(tempValues[0], tempInt);

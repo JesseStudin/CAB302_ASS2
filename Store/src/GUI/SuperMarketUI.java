@@ -256,6 +256,11 @@ public class SuperMarketUI extends JFrame
 			selectedManifestFile = loadManifestFileChooser.getSelectedFile();
 			stock.manifestDelivered(selectedManifestFile);
 		
+			if (tableModel.getRowCount() > 0) {
+                for (int i = tableModel.getRowCount() - 1; i > -1; i--) {
+                    tableModel.removeRow(i);
+                }
+            }
 			if(stock.getObjectAmount() > 0)
 			{
 				for(int i = 0; i < stock.getObjectAmount(); i++)
@@ -263,7 +268,6 @@ public class SuperMarketUI extends JFrame
 		    	  System.out.println(stock.getObjectAmount());
 		    	  String[] item = { "", "", "", "", "", "", "" };
 		    	  item = stock.showInventory(i);
-		    	  tableModel.removeRow(i);
 		    	  tableModel.addRow(item);
 			    }
 			}

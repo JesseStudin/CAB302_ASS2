@@ -52,7 +52,10 @@ public class Stock {
 	//use this to create all the objects! i is the 
 	//current for loop counter in gui 
 	public int getObjectAmount() {
-		return objectNames.size();
+		List<Item> objectNamesSize = new ArrayList<Item>();
+		Store store = Store.getInstance();
+		objectNamesSize = store.getInventoryNames();
+		return objectNamesSize.size();
 	}
 	
 	//use this to initiliase

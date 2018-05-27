@@ -33,8 +33,8 @@ public class Stock {
 	//for(int i = 0; i < [functionbelow]
 	
 	public String[] showInventory(int i) {
-		StoreItems storeditems = StoreItems.getInstance();
-		objectNames = storeditems.getObjectNames();
+		Store store = Store.getInstance();
+		objectNames = store.getInventoryNames();
 		String[] holdValues = new String[objectNames.size()];
 		holdValues[0] = objectNames.get(i).getName();
 		holdValues[1] = Integer.toString(objectNames.get(i).getQuantity());
@@ -94,17 +94,17 @@ public class Stock {
 		List<Item> ObjectNames = new ArrayList<>();
 		Manifest openManifest = new Manifest();
 		ObjectNames = storeitems.getObjectNames(); 
-		for(int y = 0; y < objectNames.size(); y++) {
+		for(int y = 0; y < ObjectNames.size(); y++) {
 			System.out.println("entering first for loop");
-			System.out.println("No overflow yet" + objectNames.get(y).getName());
+			System.out.println("No overflow yet" + ObjectNames.get(y).getName());
 		}
-		for(int i = 0; i < objectNames.size(); i++) {
+		for(int i = 0; i < ObjectNames.size(); i++) {
 			System.out.println("Entered for loop in stockOrder");
-			if(objectNames.get(i).getQuantity() <= objectNames.get(i).getReorderPoint()) {
+			if(ObjectNames.get(i).getQuantity() <= ObjectNames.get(i).getReorderPoint()) {
 				System.out.println("Values were correct");
-				reorderAmounts.put(openManifest.objectNames.get(i).getName(), openManifest.objectNames.get(i).getReorderAmount());
-				System.out.println("\n" + "ReorderNames = " + objectNames.get(i).getName());
-				reorderNames.add(objectNames.get(i).getName());
+				reorderAmounts.put(ObjectNames.get(i).getName(), ObjectNames.get(i).getReorderAmount());
+				System.out.println("\n" + "ReorderNames = " + ObjectNames.get(i).getName());
+				reorderNames.add(ObjectNames.get(i).getName());
 			}
 		}
 		System.out.println("Stock order reorderNames .size() " + reorderNames.size());

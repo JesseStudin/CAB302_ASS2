@@ -7,8 +7,14 @@
  */
 package SuperMarket;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Produce.Item;
+
 public class Store
 {
+	private List<Item> inventoryNames = new ArrayList<Item>();
 	private double capital = 100000.00;					// Setting the Default Capital.
 	private static final long serialVersionUID = 1L;	// Set the serial version ID.
 	private static Store instance = new Store();		// Create a Static instance of this script.
@@ -27,6 +33,10 @@ public class Store
 		String tempHold = Double.toString(this.capital);
 		return tempHold;
 	}
+	
+	public List<Item> getInventoryNames() {
+		return this.inventoryNames;
+	}
 
 	//This Function is used to set the store's capital.
 	public void setCapital(double amount)
@@ -37,5 +47,9 @@ public class Store
 	//This Function is used to set the store's capital profit.
 	public void setCapitalProfit(double amount) {
 		this.capital = this.capital + amount;
+	}
+	
+	public void setInventoryNames(List<Item> inventoryNames) {
+		this.inventoryNames = inventoryNames;
 	}
 }

@@ -1,6 +1,7 @@
 package Manifests;
 
 import Produce.Item;
+import SuperMarket.Store;
 
 import java.io.*;
 import java.util.*;
@@ -62,7 +63,9 @@ public class Manifest {
 			}
 			reader.close();
 			StoreItems itemStore = StoreItems.getInstance();
+			Store store = Store.getInstance();
 			itemStore.setObjectNames(objectNames);
+			store.setInventoryNames(objectNames);
 			return objectNames;
 		} catch(IOException e) {
 			e.printStackTrace();

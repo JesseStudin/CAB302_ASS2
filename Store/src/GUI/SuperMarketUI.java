@@ -36,7 +36,6 @@ public class SuperMarketUI extends JFrame
 	
 	//UI Items:
 	private DefaultTableModel tableModel;
-	private DefaultTableModel model;
 	private Container uiContainer;
 	private JTextField capitalValue;
 	private JTable table;
@@ -222,6 +221,7 @@ public class SuperMarketUI extends JFrame
 	  }
 		System.out.println("Setting Capital");
 		capitalValue.setText(store.getCapital());
+		ReloadUI();
 	}
 	
 	//Save Functions:
@@ -230,6 +230,7 @@ public class SuperMarketUI extends JFrame
 	{
 		stock.stockOrder();
 		capitalValue.setText(store.getCapital());
+		ReloadUI();
 	}
 	
 	private void SaveSaleLogs()
@@ -260,7 +261,7 @@ public class SuperMarketUI extends JFrame
 			count++;
 		}
 		
-		
+		ReloadUI();
 	}
 	
 	//Load Functions:
@@ -269,15 +270,25 @@ public class SuperMarketUI extends JFrame
 	{
 		selectedFile = loadManifestFileChooser.getSelectedFile();
 		File createFile = new File("src\\CSV's\\manifest00.csv");
-		stock.manifestDelivered(createFile);
+		stock.manifestDelivered(selectedFile);
 		
-		//TODO: add Relevant Function.
+		ReloadUI();
 	}
 	
 	private void LoadSaleLogs()
 	{
 		selectedFile = loadSalesLogsFileChooser.getSelectedFile();
-		
+		//stock
 		//TODO: add Relevant Function.
+		ReloadUI();
+	}
+	
+	private void ReloadUI()
+	{
+		uiContainer.repaint();
+		capitalValue.repaint();
+		inputPanel.repaint();
+		capitalLabel.repaint();
+		table.repaint();
 	}
 }

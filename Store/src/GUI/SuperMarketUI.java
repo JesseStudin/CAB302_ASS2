@@ -198,9 +198,10 @@ public class SuperMarketUI extends JFrame
       });
 
       file.add(loadMenuItemProperties);
+      file.add(loadMenuSalesLogs);
       file.add(loadMenuManifests);
       file.add(saveMenuManifests);
-      file.add(loadMenuSalesLogs);
+      
       file.add(exitMenuItem);
 
       menubar.add(file);

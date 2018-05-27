@@ -1,3 +1,10 @@
+/*
+ * Item.Java
+ * 
+ * Written by: Jesse Studin and Pierce Thompson.
+ * 
+ * This file handles most of the IO writing and reading for the program.
+ */
 package ParseAndWrite;
 
 import Produce.Item;
@@ -13,46 +20,39 @@ import Manifests.Manifest;
 import Manifests.StoreItems;
 
 public class CSVWriteParse {
-
-	private boolean checkTemp(int i) {
-		List<Item> objectNames = new ArrayList<Item>();
-		StoreItems store = StoreItems.getInstance();
-		objectNames = store.getObjectNames();
-		if(objectNames.get(i).getTemperatureCel() < -0.1 || objectNames.get(i).getTemperatureCel() > 0.0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 	
+	//This function writes a new manifest to be imported later on by the user.
 	public void writeManifest() {
 		try {
-			System.out.println("Entered Write Manifest");
-			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));
-			StoreItems storeitems = StoreItems.getInstance();
-			List<Item> objectNames = new ArrayList<>();
+			PrintWriter newLineWriter = new PrintWriter(new FileWriter("src\\CSV's\\manifest.csv"));	//Generate a brand new manifest.
+			StoreItems storeitems = StoreItems.getInstance();											//Create a new instance of StoreItems.
+			List<Item> objectNames = new ArrayList<>();													//Create a new ArrayList for Items.
 			LinkedHashMap<String, Integer> reorderAmount = new LinkedHashMap<>();
 			List<String> reorderNames = new ArrayList<>();
-			Store store = Store.getInstance();
-			objectNames = store.getInventoryNames();
-			reorderAmount = storeitems.getReorderAmounts();
-			reorderNames = storeitems.getReordernames();
-			System.out.println(reorderNames);
+			Store store = Store.getInstance();															//Create a new instance of Store.
+			objectNames = store.getInventoryNames();													//Assign a value to objectNames.
+			reorderAmount = storeitems.getReorderAmounts();												//Assign a value to reorderAmount.
+			reorderNames = storeitems.getReordernames();												//Assign a value to reorderNames.
+			
+			//System.out.println(reorderNames);
+			/*
 			for(int k = 0; k < reorderNames.size(); k++) {
 				System.out.println("ReorderName = " + reorderNames.get(k));
 			}
-			List<Item> reorderObjects = new ArrayList<Item>();
-			List<Item> normalItems = new ArrayList<Item>();
-			List<Item> rItems = new ArrayList<Item>();
+			*/
+			
+			List<Item> reorderObjects = new ArrayList<Item>();											//Assign a value to objectNames.
+			List<Item> normalItems = new ArrayList<Item>();												//Assign a value to objectNames.
+			List<Item> rItems = new ArrayList<Item>();													//Assign a value to objectNames.
 			storeitems.setRItems(rItems);
 			storeitems.setNormalItems(normalItems);
 			int counter = 0;
 			for(int b = 0; b < objectNames.size(); b++) {
 				for(int j = 0; j < reorderAmount.size(); j++) {
-					System.out.println("Inside sorting values: " + objectNames.get(b).getName());
-					System.out.println("Inside Sorting Values (reorderNames) = " + reorderNames.get(j));
+					//System.out.println("Inside sorting values: " + objectNames.get(b).getName());
+					//System.out.println("Inside Sorting Values (reorderNames) = " + reorderNames.get(j));
 					if(objectNames.get(b).getName() == reorderNames.get(j)) {
-						System.out.println("Success");
+						//System.out.println("Success");
 						reorderObjects.add(objectNames.get(b));
 						counter++;
 					}
@@ -63,7 +63,7 @@ public class CSVWriteParse {
 				if (reorderObjects.get(i).getTemperatureCheck() == true) {
 					rItems.add(reorderObjects.get(i));
 					counter++;
-					System.out.println(counter);
+					//System.out.println(counter);
 				} else if (reorderObjects.get(i).getTemperatureCheck() == false) {
 					normalItems.add(reorderObjects.get(i));
 					counter++;
@@ -87,7 +87,7 @@ public class CSVWriteParse {
 					newLineWriter.print("," + rItems.get(h).getReorderAmount());
 					newLineWriter.flush();
 					newLineWriter.print("," + rItems.get(h).getTemperatureCel() + "\n");
-					System.out.println(rItems.get(h).getTemperatureCel());
+					//System.out.println(rItems.get(h).getTemperatureCel());
 	
 				}
 				storeitems.setNormalItems(normalItems);
@@ -101,7 +101,7 @@ public class CSVWriteParse {
 	}
 	
 	public void readSalesLog(File salesLog) {
-		System.out.println("Entered ReadSalesLog");
+		//System.out.println("Entered ReadSalesLog");
 		BufferedReader reader = null;
 		try {
 			reader = new BufferedReader(new FileReader(salesLog));
@@ -118,9 +118,11 @@ public class CSVWriteParse {
 			}
 			store.setSalesValues(salesValues);
 			store.setSalesObjectNames(salesObjectNames);
+			/*
 			for(int i = 0; i < salesValues.size(); i++) {
 				System.out.println("Sales ObjectNames = " + salesObjectNames.get(i) + " Sales Values = " + salesValues.get(salesObjectNames.get(i)));
 			}
+			*/
 		} catch(IOException e) {
 			e.printStackTrace();
 		}

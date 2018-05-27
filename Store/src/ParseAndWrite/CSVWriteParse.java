@@ -45,8 +45,12 @@ public class CSVWriteParse {
 			List<Item> reorderObjects = new ArrayList<Item>();											//Assign a value to objectNames.
 			List<Item> normalItems = new ArrayList<Item>();												//Assign a value to objectNames.
 			List<Item> rItems = new ArrayList<Item>();													//Assign a value to objectNames.
+			List<Item> normalItemsTwo = new ArrayList<Item>();
+			List<Item> normalItemsThree = new ArrayList<Item>();
+			List<Item> rItemsTwo = new ArrayList<Item>();
 			storeitems.setRItems(rItems);
 			storeitems.setNormalItems(normalItems);
+
 			int counter = 0;
 			for(int b = 0; b < objectNames.size(); b++) {
 				for(int j = 0; j < reorderAmount.size(); j++) {

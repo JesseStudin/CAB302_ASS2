@@ -137,10 +137,14 @@ public class SuperMarketUI extends JFrame
 
   		loadPropertiesReturnValue = loadPropertiesFileChooser.showOpenDialog(null);
 
-  		if(loadPropertiesReturnValue == JFileChooser.APPROVE_OPTION)
+  		try
   		{
-  			LoadItemProperties();
+	  		if(loadPropertiesReturnValue == JFileChooser.APPROVE_OPTION)
+	  		{
+	  			LoadItemProperties();
+	  		}
   		}
+  		catch (Exception e) { e.printStackTrace(); }
       });
       
       //Load Manifests Menu:
@@ -151,10 +155,14 @@ public class SuperMarketUI extends JFrame
 
   		loadManifestReturnValue = loadManifestFileChooser.showOpenDialog(null);
 
-  		if(loadManifestReturnValue == JFileChooser.APPROVE_OPTION)
+  		try
   		{
-  			LoadManifests();
+	  		if(loadManifestReturnValue == JFileChooser.APPROVE_OPTION)
+	  		{
+	  			LoadManifests();
+	  		}
   		}
+  		catch (Exception e) { e.printStackTrace(); }
       });
       
       //Save Manifests Menu:
@@ -171,10 +179,14 @@ public class SuperMarketUI extends JFrame
 
   		loadSalesLogsReturnValue = loadSalesLogsFileChooser.showOpenDialog(null);
 
-  		if(loadSalesLogsReturnValue == JFileChooser.APPROVE_OPTION)
+  		try
   		{
-  			LoadSaleLogs();
+	  		if(loadSalesLogsReturnValue == JFileChooser.APPROVE_OPTION)
+	  		{
+	  			LoadSaleLogs();
+	  		}
   		}
+  		catch (Exception e) { e.printStackTrace(); }
       });
       
       //Exit Menu:
@@ -203,16 +215,21 @@ public class SuperMarketUI extends JFrame
 		File selectedPropertiesFile = new File("src\\CSV's\\item_properties.csv");
 		stock.initialise(selectedPropertiesFile);
 		
-		if(stock.getObjectAmount() > 0)
+		try
 		{
-	      for(int i = 0; i < stock.getObjectAmount(); i++)
-	      {
-	    	  System.out.println(stock.getObjectAmount());
-	    	  String[] item = { "", "", "", "", "", "", "" };
-	    	  item = stock.showInventory(i);
-	    	  tableModel.addRow(item);
-	      }
-	  }
+			if(stock.getObjectAmount() > 0)
+			{
+		      for(int i = 0; i < stock.getObjectAmount(); i++)
+		      {
+		    	  System.out.println(stock.getObjectAmount());
+		    	  String[] item = { "", "", "", "", "", "", "" };
+		    	  item = stock.showInventory(i);
+		    	  tableModel.addRow(item);
+		      }
+			}
+		}
+		catch (Exception e) { e.printStackTrace(); }
+		
 		System.out.println("Setting Capital");
 		capitalValue.setText(store.getCapital());
 		
@@ -245,18 +262,21 @@ public class SuperMarketUI extends JFrame
 		selectedFile = loadSalesLogsFileChooser.getSelectedFile();
 		stock.salesLog(selectedFile);
 		
-		if(stock.getObjectAmount() > 0)
+		try
 		{
-	      for(int i = 0; i < stock.getObjectAmount(); i++)
-	      {
-	    	  System.out.println(stock.getObjectAmount());
-	    	  String[] item = { "", "", "", "", "", "", "" };
-	    	  item = stock.showInventory(i);
-	    	  //tableModel.setValueAt(item, row, column);
-	    	  tableModel.removeRow(i);
-	    	  tableModel.addRow(item);
-	      }
-	  }
+			if(stock.getObjectAmount() > 0)
+			{
+				for(int i = 0; i < stock.getObjectAmount(); i++)
+			    {
+		    	  System.out.println(stock.getObjectAmount());
+		    	  String[] item = { "", "", "", "", "", "", "" };
+		    	  item = stock.showInventory(i);
+		    	  tableModel.removeRow(i);
+		    	  tableModel.addRow(item);
+			    }
+			}
+		}
+		catch (Exception e) { e.printStackTrace(); }
 		
 		ReloadUI();
 	}
